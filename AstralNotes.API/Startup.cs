@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using AstralNotes.Database;
+using AstralNotes.Domain;
 using AstralNotes.Utils.Filters;
 using AstralNotes.Utils.JwtOptions;
 using AstralNotes.Utils.Swagger;
@@ -28,7 +27,7 @@ namespace AstralNotes.API
             Configuration = configuration;
             Environment = environment;
         }
-       
+           
         public void ConfigureServices(IServiceCollection services)
         {
             //Database
@@ -39,7 +38,10 @@ namespace AstralNotes.API
             });  
             
             services.AddScoped<IDataInitializer, DataInitializer>();
-           
+            
+            //Services
+            services.Initialization();
+            
             //Authentication
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -59,7 +61,7 @@ namespace AstralNotes.API
                         ValidateIssuerSigningKey = true,
                     };
                 });
-
+            
             //MVC
             services.AddMvc(options =>
             {
