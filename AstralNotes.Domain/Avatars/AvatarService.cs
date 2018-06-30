@@ -23,9 +23,9 @@ namespace AstralNotes.Domain.Avatars
             _fileStorage = fileStorage;
         }
 
-        public async Task<Guid> SaveAvatar(string gender, string seed)
+        public async Task<Guid> SaveAvatar(string seed)
         {
-            var content = await _avatarProvider.GetAsync(gender.ToLower(), seed);
+            var content = await _avatarProvider.GetAsync(seed);
             
             var avatarFile = new File(".svg", content.Length);
             

@@ -49,26 +49,24 @@ namespace AstralNotes.API.Controllers
         /// Получение заметки
         /// </summary>
         /// <param name="noteGuid">Идентификатор заметки</param>
-        /// <param name="userGuid">Идентификатор пользователя</param>
         /// <returns>Выходная модель заметки</returns>
-        [HttpGet("{noteGuid}/User/{userGuid}")]
+        [HttpGet("{noteGuid}")]
         //  [Authorize(Roles="Администратор")]
-        public async Task<NoteModel> GetUser([FromRoute] Guid noteGuid, [FromRoute] Guid userGuid)
+        public async Task<NoteModel> GetUser([FromRoute] Guid noteGuid)
         {
-            return await _noteService.GetNote(noteGuid, userGuid);
+            return await _noteService.GetNote(noteGuid);
         }
 
         /// <summary>
         /// Получение заметок
         /// </summary>
         /// <param name="search">Строка поиска по полю : Content</param>
-        /// <param name="userGuid">Идентификатор пользователя</param>
         /// <returns>Коллекция объектов отсортированная по полю : CreationDate</returns>
-        [HttpGet("User/{userGuid}")]
+        [HttpGet]
         //[Authorize(Roles="Администратор")]
-        public async Task<List<NoteShortModel>> GetUsers([FromQuery] string search, [FromRoute] Guid userGuid)
+        public async Task<List<NoteShortModel>> GetUsers([FromQuery] string search)
         {
-            var result = _noteService.GetNotes(search, userGuid);
+            var result = _noteService.GetNotes(search);
             
             return  result.Result.OrderBy(x => x.CreationDate).ToList();
         }

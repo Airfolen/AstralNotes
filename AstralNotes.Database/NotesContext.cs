@@ -1,23 +1,22 @@
 ﻿using AstralNotes.Database.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AstralNotes.Database
 {
-    public class NotesContext : DbContext
+    public class NotesContext : IdentityDbContext<User>
     {
-        public DbSet<User> Users { get; set; }
-        
         public DbSet<Note> Notes { get; set; }
         
         public DbSet<File> Files { get; set; }
 
-        public NotesContext(DbContextOptions options) : base(options)
+        public NotesContext(DbContextOptions<NotesContext> options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

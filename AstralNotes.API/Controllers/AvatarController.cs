@@ -22,9 +22,9 @@ namespace AstralNotes.API.Controllers
 
        
         [HttpPost("{seed}")]
-        public async Task<Guid> Create([FromBody]string gender, [FromRoute] Guid seed)
+        public async Task<Guid> Create([FromRoute] Guid seed)
         {
-            return await _avatarService.SaveAvatar(gender, seed.ToString());
+            return await _avatarService.SaveAvatar(seed.ToString());
         }
 
        

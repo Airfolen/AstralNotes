@@ -1,0 +1,27 @@
+﻿@model AstralNotes.Domain.Users.Models.UserInfo
+
+<h2 class="col-md-6 col-md-offset-3">Регистрация нового пользователя</h2>
+<form class="col-md-6 col-md-offset-3" method="post" asp-controller="Account" asp-action="Registration">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="form-group">
+        <label asp-for="Login"></label><br />
+        <input asp-for="Login" class="form-control" placeholder="Введите логин"/>
+        <span asp-validation-for="Login"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserName"></label><br />
+        <input asp-for="UserName" class="form-control" placeholder="Введите имя пользователя"/>
+        <span asp-validation-for="UserName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" class="form-control" placeholder="Введите пароль"/>
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PasswordConfirm"></label><br />
+        <input asp-for="PasswordConfirm" class="form-control" placeholder="Подтвердите пароль"/>
+        <span asp-validation-for="PasswordConfirm"></span>
+    </div>
+    <button type="submit" class="btn btn-default">Регистрация</button>
+</form>

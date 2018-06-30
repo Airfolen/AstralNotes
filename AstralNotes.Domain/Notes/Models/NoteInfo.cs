@@ -10,7 +10,5 @@ namespace AstralNotes.Domain.Notes.Models
         public string Description { get; set; }
         
         public NoteCategory Category { get; set; }
-        
-        public Guid UserGuid { get; set; }
     }
 }

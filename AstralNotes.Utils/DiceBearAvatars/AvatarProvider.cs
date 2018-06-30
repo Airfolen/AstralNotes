@@ -23,9 +23,9 @@ namespace AstralNotes.Utils.DiceBearAvatars
         /// <summary>
         /// Получение аватара
         /// </summary>
-        public async Task<Stream> GetAsync(string gender, string seed)
+        public async Task<Stream> GetAsync(string seed)
         {
-            var result = await _httpClient.GetAsync($"{gender}/{seed}.svg");
+            var result = await _httpClient.GetAsync($"identicon/{seed}.svg");
             
             if (!result.IsSuccessStatusCode)
                 throw new HttpRequestException($"Запрос на DiceBear Avatars API завершился ошибкой. " +

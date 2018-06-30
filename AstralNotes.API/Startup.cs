@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using AstralNotes.Database;
+using AstralNotes.Database.Entities;
 using AstralNotes.Domain;
 using AstralNotes.Utils.DiceBearAvatars.Extensions;
 using AstralNotes.Utils.FileStore;
 using AstralNotes.Utils.Filters;
-using AstralNotes.Utils.JwtOptions;
 using AstralNotes.Utils.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,7 +43,7 @@ namespace AstralNotes.API
                     options => options.MigrationsAssembly("AstralNotes.API"));
             });  
             
-            services.AddScoped<IDataInitializer, DataInitializer>();
+          //  services.AddScoped<IDataInitializer, DataInitializer>();
             
             //Services
             services.Initialization();
@@ -50,24 +51,8 @@ namespace AstralNotes.API
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //Authentication
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.RequireHttpsMetadata = false;
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidIssuer = AuthenticationOptions.Issuer,
-
-                        ValidateAudience = true,
-                        ValidAudience = AuthenticationOptions.Audience,
-                        
-                        ValidateLifetime = true,
-
-                        IssuerSigningKey = AuthenticationOptions.GetSymmetricSecurityKey(),
-                        ValidateIssuerSigningKey = true,
-                    };
-                });
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<NotesContext>();
             
             //MVC
             services.AddMvc(options =>

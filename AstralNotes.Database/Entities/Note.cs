@@ -22,17 +22,12 @@ namespace AstralNotes.Database.Entities
 
         [Required]
         public NoteCategory Category { get; set; }
-
-        [ForeignKey(nameof(User))]
-        public Guid UserGuid { get; set; }
         
         [ForeignKey("File")]
         public Guid FileGuid { get; set; }
         
         #region Навигационные свойства
-        
-        public virtual User User{ get; set; }
-        
+    
         public virtual File File { get; set; }
         
         #endregion

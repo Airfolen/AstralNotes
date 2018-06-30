@@ -8,6 +8,7 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="bootstrap" Version="4.1.1" />
     <PackageReference Include="MediaTypeMap.Core" Version="2.3.3" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.0" />
@@ -22,5 +23,8 @@
     <ProjectReference Include="..\AstralNotes.Database\AstralNotes.Database.csproj" />
     <ProjectReference Include="..\AstralNotes.Domain\AstralNotes.Domain.csproj" />
     <ProjectReference Include="..\AstralNotes.Utils\AstralNotes.Utils.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\images" />
   </ItemGroup>
 </Project>

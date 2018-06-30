@@ -6,9 +6,9 @@ using AutoMapper;
 
 namespace AstralNotes.Domain
 {
-    public class IdentityMappingProfile: Profile
+    public class MappingProfile: Profile
     {
-        public IdentityMappingProfile()
+        public MappingProfile()
         {
             CreateMap<UserInfo, User>();
             CreateMap<User, UserModel>();

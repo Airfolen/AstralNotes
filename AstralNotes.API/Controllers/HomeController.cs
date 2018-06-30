@@ -7,9 +7,14 @@ namespace AstralNotes.API.Controllers
     /// </summary>
     public class HomeController : Controller
     {
+//        public IActionResult Index()
+//        {
+//            return new RedirectResult("~/help");
+//        }
+        
         public IActionResult Index()
         {
-            return new RedirectResult("~/help");
+            return View();
         }
     }
 }

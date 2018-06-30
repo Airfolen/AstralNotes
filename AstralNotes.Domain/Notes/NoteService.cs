@@ -29,9 +29,7 @@ namespace AstralNotes.Domain.Notes
         {
             var note = _mapper.Map<NoteInfo, Note>(model);
 
-            var avatarFileGuid = await _avatarService.SaveAvatar(
-                _context.Users.FirstAsync(x => x.UserGuid == model.UserGuid).Result.Gender.ToString(),
-                note.NoteGuid.ToString());
+            var avatarFileGuid = await _avatarService.SaveAvatar(note.NoteGuid.ToString());
 
             note.FileGuid = avatarFileGuid;
             
@@ -51,18 +49,17 @@ namespace AstralNotes.Domain.Notes
             await _context.SaveChangesAsync();
         }
 
-        public async Task<NoteModel> GetNote(Guid noteGuid, Guid userGuid)
+        public async Task<NoteModel> GetNote(Guid noteGuid)
         {
-            var note = await _context.Notes.AsNoTracking().Include(x => x.User)
-                .FirstAsync(x => x.NoteGuid == noteGuid && x.User.UserGuid == userGuid);
+            var note = await _context.Notes.AsNoTracking()
+                .FirstAsync(x => x.NoteGuid == noteGuid);
             
             return _mapper.Map<Note, NoteModel>(note);
         }
 
-        public async Task<List<NoteShortModel>> GetNotes(string search, Guid userGuid)
+        public async Task<List<NoteShortModel>> GetNotes(string search)
         {
-            var result = _context.Notes.AsNoTracking().Include(x => x.User)
-                .Where(x => x.User.UserGuid == userGuid);
+            var result = _context.Notes.AsNoTracking();
 
             if (!string.IsNullOrEmpty(search))
             {

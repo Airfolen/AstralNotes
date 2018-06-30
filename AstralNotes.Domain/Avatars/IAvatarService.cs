@@ -7,7 +7,7 @@ namespace AstralNotes.Domain.Avatars
 {
     public interface IAvatarService
     {
-        Task<Guid> SaveAvatar(string gender, string seed);
+        Task<Guid> SaveAvatar(string seed);
         
         Task<AvatarModel> GetAvatar(Guid avatarGuid);
         
