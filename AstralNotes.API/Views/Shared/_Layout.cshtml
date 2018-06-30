@@ -10,7 +10,7 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -21,9 +21,21 @@
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AstralNotes</a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse">   
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="navbar-text">@User.Identity.Name</li>
+                        <a class="btn btn-default btn-sm navbar-btn navbar-right" asp-controller="Account" asp-action="LogOut">Выход</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-default btn-sm navbar-btn navbar-right" asp-controller="Account" asp-action="Registration">Регистрация</a>
+                        <a class="btn btn-default btn-sm navbar-btn navbar-right" asp-controller="Account" asp-action="Login">Вход</a>
+                    }
                 </ul>
             </div>
         </div>
@@ -31,8 +43,8 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer >
-            <p>&copy; 2018 - AstralNotes</p>
+        <footer>
+            <div class="DivFooter col-md-6 col-md-offset-3">  <p>&copy; 2018 - AstralNotes</p></div>
         </footer>
     </div>
 

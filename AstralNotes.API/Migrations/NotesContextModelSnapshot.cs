@@ -54,9 +54,13 @@ namespace AstralNotes.API.Migrations
 
                     b.Property<Guid>("FileGuid");
 
+                    b.Property<string>("Id");
+
                     b.HasKey("NoteGuid");
 
                     b.HasIndex("FileGuid");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("Notes");
                 });
@@ -76,13 +80,13 @@ namespace AstralNotes.API.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("Login")
-                        .IsRequired()
-                        .HasMaxLength(20);
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -228,6 +232,10 @@ namespace AstralNotes.API.Migrations
                         .WithMany()
                         .HasForeignKey("FileGuid")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AstralNotes.Database.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("Id");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

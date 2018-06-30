@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using AstralNotes.Database;
 using AstralNotes.Database.Entities;
@@ -43,7 +44,7 @@ namespace AstralNotes.API
                     options => options.MigrationsAssembly("AstralNotes.API"));
             });  
             
-          //  services.AddScoped<IDataInitializer, DataInitializer>();
+            services.AddScoped<IDataInitializer, DataInitializer>();
             
             //Services
             services.Initialization();
@@ -51,9 +52,24 @@ namespace AstralNotes.API
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //Authentication
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(opts => {
+                    opts.Password.RequiredLength = 5; 
+                    opts.Password.RequireNonAlphanumeric = false; 
+                    opts.Password.RequireLowercase = false; 
+                    opts.Password.RequireUppercase = false; 
+                    opts.Password.RequireDigit = false; 
+                })
                 .AddEntityFrameworkStores<NotesContext>();
-            
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Expiration = TimeSpan.FromDays(150);
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+                options.AccessDeniedPath = "/Account/AccessDenied"; 
+                options.SlidingExpiration = true;
+            });
             //MVC
             services.AddMvc(options =>
             {

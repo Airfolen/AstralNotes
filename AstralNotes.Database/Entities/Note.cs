@@ -26,8 +26,14 @@ namespace AstralNotes.Database.Entities
         [ForeignKey("File")]
         public Guid FileGuid { get; set; }
         
+        [ForeignKey("User")]
+        public string Id { get;set; }        
+       
+        
         #region Навигационные свойства
     
+        public virtual User User{ get; set; }
+        
         public virtual File File { get; set; }
         
         #endregion

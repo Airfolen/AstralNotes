@@ -2,6 +2,7 @@
 using AstralNotes.Database.Entities;
 using AstralNotes.Domain.Authentication.Models;
 using AstralNotes.Domain.Users.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,7 @@ namespace AstralNotes.API.Controllers
         }
         
         [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Route("Registration")]
         public IActionResult Registration()
         {
@@ -33,7 +35,7 @@ namespace AstralNotes.API.Controllers
         {
             if(ModelState.IsValid)
             {
-                User user = new User { Login = model.Login, UserName = model.UserName};
+                User user = new User { UserName = model.Login, FullName = model.FullName};
             
                 var result = await _userManager.CreateAsync(user, model.Password);
                 
@@ -58,9 +60,12 @@ namespace AstralNotes.API.Controllers
         /// </summary>
         /// <param name="returnUrl">Адрес для возврата</param>
         [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Route("Login")]
         public IActionResult Login(string returnUrl = null)
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
             return View(new SignInModel { ReturnUrl = returnUrl });
         }
  
@@ -70,6 +75,7 @@ namespace AstralNotes.API.Controllers
         /// <param name="model">Модель аутентификации</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         [Route("Login")]
         public async Task<IActionResult> Login(SignInModel model)
         {
@@ -96,13 +102,20 @@ namespace AstralNotes.API.Controllers
             return View(model);
         }
  
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpGet]
         [Route("LogOut")]
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        
+        [Authorize]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [Route("AccessDenied")]
+        [HttpGet]
+        public IActionResult AccessDenied() => View();
     }
 }

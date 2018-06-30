@@ -10,8 +10,9 @@ namespace AstralNotes.API
         public static void Main(string[] args)
         {
             BuildWebHost(args).MigrateDatabase<NotesContext>()
+                .SetUpWithService<IDataInitializer>(x => x.Initialize().Wait())
                 .Run();
-            //.SetUpWithService<IDataInitializer>(x => x.Initialize().Wait())
+           
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

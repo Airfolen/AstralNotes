@@ -7,7 +7,7 @@ namespace AstralNotes.Database.Entities
     public class User : IdentityUser
     {
         [Required]
-        [MaxLength(20)]
-        public string Login { get; set; }
+        [MaxLength(30)]
+        public string FullName { get; set; }
     }
 }

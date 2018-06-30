@@ -10,6 +10,10 @@ namespace AstralNotes.Domain.Users.Models
         public string Login { get; set; }
  
         [Required]
+        [Display(Name = "Имя пользователя")]
+        public string FullName { get; set; }
+        
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
@@ -19,9 +23,5 @@ namespace AstralNotes.Domain.Users.Models
         [DataType(DataType.Password)]
         [Display(Name = "Подтвердить пароль")]
         public string PasswordConfirm { get; set; }
-        
-        [Required]
-        [Display(Name = "Имя пользователя")]
-        public string UserName { get; set; }
     }
 }
