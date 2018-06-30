@@ -12,31 +12,15 @@ using System;
 namespace AstralNotes.API.Migrations
 {
     [DbContext(typeof(NotesContext))]
-    partial class NotesContextModelSnapshot : ModelSnapshot
+    [Migration("20180629074543_AddGenderAndDiscription")]
+    partial class AddGenderAndDiscription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
-
-            modelBuilder.Entity("AstralNotes.Database.Entities.File", b =>
-                {
-                    b.Property<Guid>("FileGuid");
-
-                    b.Property<DateTime>("CreationDate");
-
-                    b.Property<string>("Extension")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<long>("Size");
-
-                    b.HasKey("FileGuid");
-
-                    b.ToTable("Files");
-                });
 
             modelBuilder.Entity("AstralNotes.Database.Entities.Note", b =>
                 {
@@ -52,13 +36,9 @@ namespace AstralNotes.API.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<Guid>("FileGuid");
-
                     b.Property<Guid>("UserGuid");
 
                     b.HasKey("NoteGuid");
-
-                    b.HasIndex("FileGuid");
 
                     b.HasIndex("UserGuid");
 
@@ -93,11 +73,6 @@ namespace AstralNotes.API.Migrations
 
             modelBuilder.Entity("AstralNotes.Database.Entities.Note", b =>
                 {
-                    b.HasOne("AstralNotes.Database.Entities.File", "File")
-                        .WithMany()
-                        .HasForeignKey("FileGuid")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("AstralNotes.Database.Entities.User", "User")
                         .WithMany("Notes")
                         .HasForeignKey("UserGuid")

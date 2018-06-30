@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using AstralNotes.Database.Enums;
 
 namespace AstralNotes.Database.Entities
 {
@@ -25,6 +26,9 @@ namespace AstralNotes.Database.Entities
         [Required]
         [MaxLength(20)]
         public string FullName { get; set; }
+        
+        [Required]
+        public Gender Gender { get; set; }
 
         #region Навигационные свойства
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using AstralNotes.Database.Enums;
 
 namespace AstralNotes.Domain.Users.Models
 {
@@ -9,5 +10,7 @@ namespace AstralNotes.Domain.Users.Models
         public string Login { get; set; }
         
         public string FullName { get; set; }
+        
+        public Gender Gender { get; set; }
     }
 }

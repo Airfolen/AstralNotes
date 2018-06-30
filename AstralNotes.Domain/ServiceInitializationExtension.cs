@@ -1,4 +1,5 @@
 using AstralNotes.Domain.Authentication;
+using AstralNotes.Domain.Avatars;
 using AstralNotes.Domain.Notes;
 using AstralNotes.Domain.Users;
 using AstralNotes.Utils.Password;
@@ -16,6 +17,7 @@ namespace AstralNotes.Domain
             services.AddScoped<IPasswordHasher, PasswordHasher>();                
             services.AddScoped<IPasswordValidator, PasswordValidator>();
             services.AddScoped<IJwtTokenService, JwtTokenService>();
+            services.AddScoped<IAvatarService, AvatarService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<INoteService, NoteService>();

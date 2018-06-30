@@ -1,4 +1,5 @@
 ﻿using AstralNotes.Database.Entities;
+using AstralNotes.Domain.Avatars.Models;
 using AstralNotes.Domain.Notes.Models;
 using AstralNotes.Domain.Users.Models;
 using AutoMapper;

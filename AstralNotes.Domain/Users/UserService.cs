@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using AstralNotes.Database;
 using AstralNotes.Database.Entities;
 using AstralNotes.Domain.Users.Models;
+using AstralNotes.Utils.DiceBearAvatars;
 using AstralNotes.Utils.Password;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -21,7 +23,7 @@ namespace AstralNotes.Domain.Users
         private readonly IMapper _mapper;
 
         public UserService(NotesContext context, IPasswordValidator passwordValidator,
-            IPasswordHasher passwordHasher, IMapper mapper)
+            IPasswordHasher passwordHasher, IMapper mapper, IAvatarProvider avatarProvider)
         {
             _context = context;
             _passwordValidator = passwordValidator;

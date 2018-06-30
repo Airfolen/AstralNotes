@@ -9,7 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AstralNotes.API.Controllers
 {
-        [Route("Users")]
+    /// <inheritdoc />
+    /// <summary>
+    /// API для работы с пользователями
+    /// </summary>
+    [Route("Users")]
     public class UserController
     {
         private readonly IUserService _userService;

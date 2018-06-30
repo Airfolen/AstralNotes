@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AstralNotes.Domain.Notes;
 using AstralNotes.Domain.Notes.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AstralNotes.API.Controllers
@@ -27,7 +28,7 @@ namespace AstralNotes.API.Controllers
         /// </summary>
         /// <param name="model">Входная модель пользователя</param>
         [HttpPost]
-        //   [Authorize(Roles="Администратор")]
+      //  [Authorize]
         public async Task<Guid> Create([FromBody]NoteInfo model)
         {
             return await _noteService.Create(model);

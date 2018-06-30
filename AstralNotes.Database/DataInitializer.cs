@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AstralNotes.Database.Entities;
+using AstralNotes.Database.Enums;
 using AstralNotes.Utils.Password;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,21 +42,24 @@ namespace AstralNotes.Database
                     FullName = "Peter Petrov",
                     Login = "User1",
                     Salt = userSalt,
-                    PasswordHash = _passwordHasher.Hash("User1" + userSalt)
+                    PasswordHash = _passwordHasher.Hash("User1" + userSalt),
+                    Gender = Gender.Male
                 },
                 new User
                 {
                     FullName = "Ivan Ivanov",
                     Login = "User2",
                     Salt = userSalt,
-                    PasswordHash = _passwordHasher.Hash("User2" + userSalt)
+                    PasswordHash = _passwordHasher.Hash("User2" + userSalt),
+                    Gender = Gender.Male
                 },
                 new User
                 {
                     FullName = "David Davidich",
                     Login = "User3",
                     Salt = userSalt,
-                    PasswordHash = _passwordHasher.Hash("User3" + userSalt)
+                    PasswordHash = _passwordHasher.Hash("User3" + userSalt),
+                    Gender = Gender.Female
                 }
             };
             

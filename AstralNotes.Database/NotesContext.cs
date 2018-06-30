@@ -8,6 +8,8 @@ namespace AstralNotes.Database
         public DbSet<User> Users { get; set; }
         
         public DbSet<Note> Notes { get; set; }
+        
+        public DbSet<File> Files { get; set; }
 
         public NotesContext(DbContextOptions options) : base(options)
         {

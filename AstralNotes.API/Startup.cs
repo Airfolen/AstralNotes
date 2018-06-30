@@ -1,15 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using AstralNotes.Database;
 using AstralNotes.Domain;
+using AstralNotes.Utils.DiceBearAvatars.Extensions;
+using AstralNotes.Utils.FileStore;
 using AstralNotes.Utils.Filters;
 using AstralNotes.Utils.JwtOptions;
 using AstralNotes.Utils.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
@@ -41,7 +46,9 @@ namespace AstralNotes.API
             
             //Services
             services.Initialization();
-            
+            services.AddAvatars();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             //Authentication
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -78,6 +85,11 @@ namespace AstralNotes.API
                     Version = "v1",
                     Title = "Core API"
                 });
+            
+            services.AddLocalFileStore(options =>
+            {
+                options.RootPath = Path.Combine(Environment.ContentRootPath, "LocalFileStore");
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
