@@ -61,7 +61,7 @@ namespace AstralNotes.API.Controllers
         /// Удаление заметки
         /// </summary>
         /// <param name="noteGuid">Идентификатор заметки</param>
-        [HttpDelete("{noteGuid}")]
+        [HttpPost("Delete/{noteGuid}")]
         [Authorize]
         public async Task<IActionResult> Delete(Guid noteGuid)
         {

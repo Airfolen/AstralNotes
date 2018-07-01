@@ -15,9 +15,12 @@
                         <div class="caption">
                             <div class="NoteText">@note.Description</div>
                             <p>
-                                <a href="#" class="btn btn-primary" role="button">Button</a>
-                                <a href="#" asp-controller="Note" asp-action="Delete" asp-route-id="@note.NoteGuid"
-                                   method="delete" class="btn btn-default" role="button">Удалить</a>
+                                <a class="btn btn-primary" role="button">Button</a>
+                                <label class="btn btn-primary" for="submit-form" tabindex="0">Удалить</label>
+                                <form type="hidden" asp-controller="Note" asp-action="Delete" asp-route-id="@note.NoteGuid" method="post">
+                                   <input type="submit" id="submit-form" class="hidden" />
+                                </form>
+                                
                             </p>
                         </div>
                     </div>

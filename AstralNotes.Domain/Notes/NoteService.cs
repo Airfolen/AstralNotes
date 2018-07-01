@@ -49,10 +49,10 @@ namespace AstralNotes.Domain.Notes
         {
             var note = await _context.Notes.FirstAsync(n => n.NoteGuid == noteGuid);
             
-            await _avatarService.Remove(note.FileGuid);
-            
             _context.Notes.Remove(note);      
             await _context.SaveChangesAsync();
+            
+            await _avatarService.Remove(note.FileGuid);
         }
 
         public async Task<NoteModel> GetNote(Guid noteGuid, string userid)
