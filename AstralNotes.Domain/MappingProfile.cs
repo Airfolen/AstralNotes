@@ -15,7 +15,6 @@ namespace AstralNotes.Domain
             
             CreateMap<NoteInfo, Note>();
             CreateMap<Note, NoteModel>();
-            CreateMap<Note, NoteShortModel>();
         }
     }
 }

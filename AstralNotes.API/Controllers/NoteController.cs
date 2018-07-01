@@ -102,7 +102,7 @@ namespace AstralNotes.API.Controllers
         /// <returns>Коллекция объектов отсортированная по полю : CreationDate</returns>
         [HttpGet("{userId}")]
         [Authorize]
-        public async Task<List<NoteShortModel>> GetNotes([FromQuery] string search, [FromRoute] string userId)
+        public async Task<List<NoteModel>> GetNotes([FromQuery] string search, [FromRoute] string userId)
         {
             var result = _noteService.GetNotes(search, userId);
             

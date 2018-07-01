@@ -63,7 +63,7 @@ namespace AstralNotes.Domain.Notes
             return _mapper.Map<Note, NoteModel>(note);
         }
 
-        public async Task<List<NoteShortModel>> GetNotes(string search, string userid)
+        public async Task<List<NoteModel>> GetNotes(string search, string userid)
         {
             var result = _context.Notes.AsNoTracking().Where(x => x.UserId == userid);
 
@@ -73,7 +73,7 @@ namespace AstralNotes.Domain.Notes
                 result = result.Where(x => x.Content.ToLower().Contains(search));
             }
 
-            return await result.ProjectTo<NoteShortModel>().ToListAsync();
+            return await result.ProjectTo<NoteModel>().ToListAsync();
         }
     }
 }

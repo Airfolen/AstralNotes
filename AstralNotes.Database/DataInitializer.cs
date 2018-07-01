@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AstralNotes.Database.Entities;
-using AstralNotes.Utils.Password;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

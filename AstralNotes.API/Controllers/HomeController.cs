@@ -4,9 +4,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading.Tasks;
 using AstralNotes.API.Migrations;
+using AstralNotes.API.ViewModels;
 using AstralNotes.Database.Entities;
 using AstralNotes.Domain.Avatars;
 using AstralNotes.Domain.Notes;
+using AstralNotes.Domain.Notes.Models;
 using AstralNotes.Domain.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,15 +33,21 @@ namespace AstralNotes.API.Controllers
         /// <summary>
         /// Получение заметок
         /// </summary>
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
             if (User.Identity.IsAuthenticated)
             {
                 var user = _userService.GetCurrentUserAsync();
 
-                var notes = await _noteService.GetNotes(null, user.Result.Id);
+                var notes = await _noteService.GetNotes(search, user.Result.Id);
+
+                var viewModel = new HomeView
+                {
+                    NoteModels = notes,
+                    NoteFilter = new NoteFilter(search)
+                };
                 
-                return View(notes);
+                return View(viewModel);
             }
 
             return View();

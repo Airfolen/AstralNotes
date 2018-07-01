@@ -13,6 +13,6 @@ namespace AstralNotes.Domain.Notes
         
         Task<NoteModel> GetNote(Guid noteGuid, string userid);
 
-        Task<List<NoteShortModel>> GetNotes(string search, string userid);
+        Task<List<NoteModel>> GetNotes(string search, string userid);
     }
 }

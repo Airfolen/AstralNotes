@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AstralNotes.Domain.Notes.Models.NoteShortModel>
+﻿@model AstralNotes.API.ViewModels.HomeView
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -6,8 +6,15 @@
 <div class="NotesGallery">
     @if (User.Identity.IsAuthenticated)
     {
+        <form method="get">
+            <div class="form-inline form-group">
+                @Html.TextBox("Search", Model.NoteFilter.Search, htmlAttributes: new {@class = "form-control", @placeholder="Поиск по содержимому..."})
+                <input type="submit" value="Поиск" class="btn btn-default"/>
+            </div>
+        </form>
+        
         <div class="row">
-            @foreach (var note in Model)
+            @foreach (var note in Model.NoteModels)
             {
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
