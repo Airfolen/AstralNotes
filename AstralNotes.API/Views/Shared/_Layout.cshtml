@@ -7,10 +7,11 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
         <link rel="stylesheet" href="~/css/site.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="Header navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -28,6 +29,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <a class="btn btn-default btn-sm navbar-btn navbar-right" asp-controller="Note" asp-action="Create">Создать заметку</a>
                         <li class="navbar-text">@User.Identity.Name</li>
                         <a class="btn btn-default btn-sm navbar-btn navbar-right" asp-controller="Account" asp-action="LogOut">Выход</a>
                     }
@@ -43,7 +45,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        <footer>    
             <div class="DivFooter col-md-6 col-md-offset-3">  <p>&copy; 2018 - AstralNotes</p></div>
         </footer>
     </div>

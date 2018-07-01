@@ -1,7 +1,39 @@
-﻿@{
+﻿@model IEnumerable<AstralNotes.Domain.Notes.Models.NoteShortModel>
+@{
     ViewData["Title"] = "Home Page";
 }
  
-<div class="">
+<div class="NotesGallery">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row">
+            @foreach (var note in Model)
+            {
+                <div class="Note col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img src="http://localhost:5000/Avaters/@note.FileGuid" alt="@note.FileGuid">
+                        <div class="caption">
+                            <div class="NoteText">@note.Description</div>
+                            <p>
+                                <a href="#" class="btn btn-primary" role="button">Button</a>
+                                <a href="#" asp-controller="Note" asp-action="Delete" asp-route-id="@note.NoteGuid"
+                                   method="delete" class="btn btn-default" role="button">Удалить</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }    
+    else
+    {
+        <div class="WelcomeText thumbnail">
+            <h2 class="text-center">Добро пожаловать на сайт AstralNotes, чтобы воспользоваться сервисом для заметок авторизируйтесь</h2>
+        </div>
+       
+    }
     
+
+    @*    <p>@Model.FileStream</p>*@
+
 </div>

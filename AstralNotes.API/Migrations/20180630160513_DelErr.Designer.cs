@@ -12,9 +12,10 @@ using System;
 namespace AstralNotes.API.Migrations
 {
     [DbContext(typeof(NotesContext))]
-    partial class NotesContextModelSnapshot : ModelSnapshot
+    [Migration("20180630160513_DelErr")]
+    partial class DelErr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,13 +55,9 @@ namespace AstralNotes.API.Migrations
 
                     b.Property<Guid>("FileGuid");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("NoteGuid");
 
                     b.HasIndex("FileGuid");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Notes");
                 });
@@ -232,10 +229,6 @@ namespace AstralNotes.API.Migrations
                         .WithMany()
                         .HasForeignKey("FileGuid")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("AstralNotes.Database.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

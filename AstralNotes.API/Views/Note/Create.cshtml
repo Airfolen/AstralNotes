@@ -1,0 +1,24 @@
+﻿@using AstralNotes.Database.Enums
+@model AstralNotes.Domain.Notes.Models.NoteInfo
+
+
+<div class="clearfix">
+    <h2 class="col-md-6 col-md-offset-3">Создание заметки</h2>
+    <form class="form1 col-md-6 col-md-offset-3" method="post" asp-controller="Note" asp-action="Create">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group">
+            <label asp-for="Content"></label><br />
+            <input asp-for="Content" class="form-control" placeholder="Введите содержимое заметки"/>
+            <span asp-validation-for="Content"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Category"></label><br /> 
+            <select asp-for="Category"  class="form-control">
+                <option>@NoteCategory.General</option>
+                <option>@NoteCategory.Diary</option>
+                <option>@NoteCategory.Work</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-default">Создать</button>
+    </form>
+</div>

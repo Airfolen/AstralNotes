@@ -16,7 +16,7 @@ namespace AstralNotes.Domain
             services.AddScoped<IPasswordHasher, PasswordHasher>();                
             services.AddScoped<IPasswordValidator, PasswordValidator>();
             services.AddScoped<IAvatarService, AvatarService>();
-          //  services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
            // services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<INoteService, NoteService>();
             

@@ -17,6 +17,7 @@ namespace AstralNotes.Domain.Notes
         private readonly NotesContext _context;
         private readonly IMapper _mapper;
         private readonly IAvatarService _avatarService;
+        private readonly int _descriptionMaxLenght = 90;
 
         public NoteService(NotesContext context, IMapper mapper, IAvatarService avatarService)
         {
@@ -25,14 +26,19 @@ namespace AstralNotes.Domain.Notes
             _avatarService = avatarService;
         }
 
-        public async Task<Guid> Create(NoteInfo model)
+        public async Task<Guid> Create(NoteInfo model, string userId)
         {
             var note = _mapper.Map<NoteInfo, Note>(model);
 
             var avatarFileGuid = await _avatarService.SaveAvatar(note.NoteGuid.ToString());
 
             note.FileGuid = avatarFileGuid;
+            note.Description = model.Content.Length <= _descriptionMaxLenght
+                ? model.Content
+                : model.Content.Substring(0, _descriptionMaxLenght);
             
+            note.UserId = userId;
+
             _context.Notes.Add(note);
             await _context.SaveChangesAsync();
 
@@ -49,17 +55,17 @@ namespace AstralNotes.Domain.Notes
             await _context.SaveChangesAsync();
         }
 
-        public async Task<NoteModel> GetNote(Guid noteGuid)
+        public async Task<NoteModel> GetNote(Guid noteGuid, string userid)
         {
             var note = await _context.Notes.AsNoTracking()
-                .FirstAsync(x => x.NoteGuid == noteGuid);
+                .FirstAsync(x => x.NoteGuid == noteGuid && x.UserId == userid);
             
             return _mapper.Map<Note, NoteModel>(note);
         }
 
-        public async Task<List<NoteShortModel>> GetNotes(string search)
+        public async Task<List<NoteShortModel>> GetNotes(string search, string userid)
         {
-            var result = _context.Notes.AsNoTracking();
+            var result = _context.Notes.AsNoTracking().Where(x => x.UserId == userid);
 
             if (!string.IsNullOrEmpty(search))
             {
