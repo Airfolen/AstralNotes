@@ -9,19 +9,24 @@
         <div class="row">
             @foreach (var note in Model)
             {
-                <div class="Note col-sm-6 col-md-4">
+                <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <img src="http://localhost:5000/Avaters/@note.FileGuid" alt="@note.FileGuid">
                         <div class="caption">
                             <div class="NoteText">@note.Description</div>
-                            <p>
-                                <a class="btn btn-primary" role="button">Button</a>
-                                <label class="btn btn-primary" for="submit-form" tabindex="0">Удалить</label>
-                                <form type="hidden" asp-controller="Note" asp-action="Delete" asp-route-id="@note.NoteGuid" method="post">
-                                   <input type="submit" id="submit-form" class="hidden" />
+                            <div>
+                                <form class="" type="hidden" asp-controller="Note" asp-action="GetNote" asp-route-noteGuid="@note.NoteGuid" method="post">
+                                    <button type="submit" class="btn btn-primary">
+                                        Просмотреть
+                                    </button>
                                 </form>
-                                
-                            </p>
+                            
+                                <form class="" type="hidden" asp-controller="Note" asp-action="Delete" asp-route-id="@note.NoteGuid" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        Удалить
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -35,8 +40,5 @@
         </div>
        
     }
-    
-
-    @*    <p>@Model.FileStream</p>*@
 
 </div>

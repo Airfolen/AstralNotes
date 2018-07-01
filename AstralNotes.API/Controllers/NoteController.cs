@@ -31,7 +31,6 @@ namespace AstralNotes.API.Controllers
         /// </summary>
         [HttpGet]
         [ApiExplorerSettings(IgnoreApi = true)]
-        [Authorize]
         [Route("Create")]
         public  IActionResult Create()
         {
@@ -69,18 +68,30 @@ namespace AstralNotes.API.Controllers
             
             return RedirectToAction("Index", "Home");
         }
-
+        
+        /// <summary>
+        /// Получение заметки
+        /// </summary>
+        [HttpGet]
+        [HttpGet("{noteGuid}")]
+        public async Task<IActionResult> GetNote()
+        {
+            return View();
+        }
+        
         /// <summary>
         /// Получение заметки
         /// </summary>
         /// <param name="noteGuid">Идентификатор заметки</param>
-        /// <param name="userId">Идентификатор пользователя</param>
         /// <returns>Выходная модель заметки</returns>
-        [HttpGet("{noteGuid}/user/{userId}")]
-        //  [Authorize(Roles="Администратор")]
-        public async Task<NoteModel> GetNote([FromRoute] Guid noteGuid, [FromRoute] string userId)
+        [HttpPost("{noteGuid}")]
+        [Authorize]
+        public async Task<IActionResult> GetNote([FromRoute] Guid noteGuid)
         {
-            return await _noteService.GetNote(noteGuid, userId);
+            var user = await _userService.GetCurrentUserAsync();
+            
+            var note = await _noteService.GetNote(noteGuid, user.Id);
+            return View(note);
         }
 
         /// <summary>
@@ -90,7 +101,7 @@ namespace AstralNotes.API.Controllers
         /// <param name="userId">Идентификатор пользователя</param>
         /// <returns>Коллекция объектов отсортированная по полю : CreationDate</returns>
         [HttpGet("{userId}")]
-        //[Authorize(Roles="Администратор")]
+        [Authorize]
         public async Task<List<NoteShortModel>> GetNotes([FromQuery] string search, [FromRoute] string userId)
         {
             var result = _noteService.GetNotes(search, userId);
