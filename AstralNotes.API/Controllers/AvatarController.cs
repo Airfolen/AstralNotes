@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AstralNotes.Domain.Avatars;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MimeTypes;
 
@@ -24,6 +25,7 @@ namespace AstralNotes.API.Controllers
         /// <param name="avatarGuid">Индетификатор аватара</param>
         /// <returns>Поток файла System.IO.Stream</returns>
         /// </summary>
+        [Authorize]
         [HttpGet("{avatarGuid}")]
         public async Task<FileStreamResult> GetAvatar (Guid avatarGuid)
         {
