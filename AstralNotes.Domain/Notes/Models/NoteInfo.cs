@@ -10,6 +10,9 @@ namespace AstralNotes.Domain.Notes.Models
         [Display(Name = "Содержимое")]
         public string Content { get; set; }
         
+        [Display(Name = "Заголовок")]
+        public string Title { get; set; }
+        
         [Required]
         [Display(Name = "Категория")]
         public NoteCategory Category { get; set; }

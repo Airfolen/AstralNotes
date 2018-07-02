@@ -54,6 +54,8 @@ namespace AstralNotes.API.Migrations
 
                     b.Property<Guid>("FileGuid");
 
+                    b.Property<string>("Title");
+
                     b.Property<string>("UserId");
 
                     b.HasKey("NoteGuid");

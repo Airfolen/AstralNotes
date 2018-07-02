@@ -20,6 +20,7 @@
                     <div class="thumbnail">
                         <img src="http://localhost:5000/Avaters/@note.FileGuid" alt="@note.FileGuid">
                         <div class="caption">
+                            <div align="center" class="NoteTitle"><h3>@note.Title</h3></div>
                             <div class="NoteText">@note.Description</div>
                             <div>
                                 <form class="" type="hidden" asp-controller="Note" asp-action="GetNote" asp-route-noteGuid="@note.NoteGuid" method="post">
@@ -27,7 +28,7 @@
                                         Просмотреть
                                     </button>
                                 </form>
-                            
+
                                 <form class="" type="hidden" asp-controller="Note" asp-action="Delete" asp-route-id="@note.NoteGuid" method="post">
                                     <button type="submit" class="btn btn-sm btn-danger">
                                         Удалить

@@ -26,6 +26,10 @@ footer {
     word-break:break-all;    
 }
 
+.NoteTitle{
+    min-height: 1px;
+}
+
 .SingleNote{
     text-align: center;
     margin-left: 15%;

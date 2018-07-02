@@ -74,7 +74,7 @@ namespace AstralNotes.API.Controllers
         /// </summary>
         [HttpGet]
         [HttpGet("{noteGuid}")]
-        public async Task<IActionResult> GetNote()
+        public IActionResult GetNote()
         {
             return View();
         }
@@ -104,9 +104,9 @@ namespace AstralNotes.API.Controllers
         [Authorize]
         public async Task<List<NoteModel>> GetNotes([FromQuery] string search, [FromRoute] string userId)
         {
-            var result = _noteService.GetNotes(search, userId);
+            var result = await _noteService.GetNotes(search, userId);
             
-            return  result.Result.OrderBy(x => x.CreationDate).ToList();
+            return  result.OrderBy(x => x.CreationDate).ToList();
         }
     }
 }
