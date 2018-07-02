@@ -32,7 +32,6 @@ namespace AstralNotes.Domain.Avatars
         public async Task<Guid> SaveAvatar(string seed)
         {
             var content = await _avatarProvider.GetAsync(seed);
-            
             var avatarFile = new File(".svg", content.Length);
             
             await _fileStorage.SaveAsync(content, avatarFile.FileGuid.ToString());
@@ -51,7 +50,6 @@ namespace AstralNotes.Domain.Avatars
         public async Task<AvatarModel> GetAvatar(Guid avatarGuid)
         {
             var file = await _context.Files.AsNoTracking().FirstAsync(n => n.FileGuid == avatarGuid);
-
             var content = await _fileStorage.Get(file.FileGuid.ToString());
 
             return new AvatarModel(file.FileGuid, file.Extension, content);

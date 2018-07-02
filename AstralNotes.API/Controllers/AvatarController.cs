@@ -29,6 +29,7 @@ namespace AstralNotes.API.Controllers
         {
             var avatar = await _avatarService.GetAvatar(avatarGuid);
             var fileType = MimeTypeMap.GetMimeType(avatar.Extension);
+            
             return File(avatar.Content, fileType,  avatar.AvatarGuid + avatar.Extension);
         }
     }

@@ -33,7 +33,6 @@ namespace AstralNotes.API.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userService.GetCurrentUserAsync();
-
                 var notes = await _noteService.GetNotes(search, user.Id);
 
                 notes = notes.Where(note => note.Category == category).ToList();

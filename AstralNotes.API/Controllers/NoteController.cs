@@ -29,7 +29,7 @@ namespace AstralNotes.API.Controllers
         [HttpGet]
         [ApiExplorerSettings(IgnoreApi = true)]
         [Route("Create")]
-        public  IActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -57,9 +57,9 @@ namespace AstralNotes.API.Controllers
         /// Удаление заметки
         /// </summary>
         /// <param name="noteGuid">Идентификатор заметки</param>
-        [HttpGet("Delete/{noteGuid}")]
+        [HttpGet("Remove/{noteGuid}")]
         [Authorize]
-        public async Task<IActionResult> Delete(Guid noteGuid)
+        public async Task<IActionResult> Remove(Guid noteGuid)
         {
             await _noteService.Remove(noteGuid);
             
@@ -73,11 +73,11 @@ namespace AstralNotes.API.Controllers
         /// <returns>Выходная модель заметки</returns>
         [HttpGet("{noteGuid}")]
         [Authorize]
-        public async Task<IActionResult> GetNote([FromRoute] Guid noteGuid)
+        public async Task<IActionResult> Get([FromRoute] Guid noteGuid)
         {
             var user = await _userService.GetCurrentUserAsync();
-            
             var note = await _noteService.GetNote(noteGuid, user.Id);
+            
             return View(note);
         }
     }

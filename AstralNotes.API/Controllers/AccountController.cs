@@ -37,7 +37,11 @@ namespace AstralNotes.API.Controllers
         {
             if(ModelState.IsValid)
             {
-                User user = new User { UserName = model.Login, FullName = model.FullName};
+                var user = new User
+                {
+                    UserName = model.Login, 
+                    FullName = model.FullName
+                };
             
                 var result = await _userManager.CreateAsync(user, model.Password);
                 
@@ -54,11 +58,12 @@ namespace AstralNotes.API.Controllers
                     }
                 }
             }
+            
             return View(model);
         }
         
         /// <summary>
-        /// Аутентификация пользоваетеля
+        /// Аутентификация пользователя
         /// </summary>
         /// <param name="returnUrl">Адрес для возврата</param>
         [HttpGet]
@@ -67,7 +72,10 @@ namespace AstralNotes.API.Controllers
         public IActionResult Login(string returnUrl = null)
         {
             if (User.Identity.IsAuthenticated)
+            {
                 return RedirectToAction("Index", "Home");
+            }
+              
             return View(new SignInModel { ReturnUrl = returnUrl });
         }
  
@@ -85,6 +93,7 @@ namespace AstralNotes.API.Controllers
             {
                 var result = 
                     await _signInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, false);
+                
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
@@ -101,6 +110,7 @@ namespace AstralNotes.API.Controllers
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
                 }
             }
+            
             return View(model);
         }
  
@@ -111,6 +121,7 @@ namespace AstralNotes.API.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
+            
             return RedirectToAction("Index", "Home");
         }
     }
