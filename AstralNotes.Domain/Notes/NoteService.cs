@@ -12,12 +12,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AstralNotes.Domain.Notes
 {
+    /// <summary>
+    /// Сервис для работы с заметками
+    /// </summary>
     public class NoteService : INoteService
     {
         private readonly NotesContext _context;
         private readonly IMapper _mapper;
         private readonly IAvatarService _avatarService;
-        private readonly int _descriptionMaxLenght = 90;
+        private const int DescriptionMaxLenght = 90;
 
         public NoteService(NotesContext context, IMapper mapper, IAvatarService avatarService)
         {
@@ -26,6 +29,12 @@ namespace AstralNotes.Domain.Notes
             _avatarService = avatarService;
         }
 
+        /// <summary>
+        /// Создание заметки
+        /// <param name="model">Входная модель заметки</param>
+        /// <param name="userId">Индетификатор пользователя</param>
+        /// <returns>Индетификатор заметки</returns>
+        /// </summary>
         public async Task<Guid> Create(NoteInfo model, string userId)
         {
             var note = _mapper.Map<NoteInfo, Note>(model);
@@ -33,9 +42,9 @@ namespace AstralNotes.Domain.Notes
             var avatarFileGuid = await _avatarService.SaveAvatar(note.NoteGuid.ToString());
 
             note.FileGuid = avatarFileGuid;
-            note.Description = model.Content.Length <= _descriptionMaxLenght
+            note.Description = model.Content.Length <= DescriptionMaxLenght
                 ? model.Content
-                : model.Content.Substring(0, _descriptionMaxLenght);
+                : model.Content.Substring(0, DescriptionMaxLenght);
             
             note.UserId = userId;
 
@@ -45,6 +54,10 @@ namespace AstralNotes.Domain.Notes
             return note.NoteGuid;
         }
 
+        /// <summary>
+        /// Удаление заметки
+        /// <param name="noteGuid">Индетификатор заметки</param>
+        /// </summary>
         public async Task Remove(Guid noteGuid)
         {
             var note = await _context.Notes.FirstAsync(n => n.NoteGuid == noteGuid);
@@ -55,17 +68,29 @@ namespace AstralNotes.Domain.Notes
             await _avatarService.Remove(note.FileGuid);
         }
 
-        public async Task<NoteModel> GetNote(Guid noteGuid, string userid)
+        /// <summary>
+        /// Получение заметки для конкретного  пользователя
+        /// <param name="noteGuid">Индетификатор заметки</param>
+        /// <param name="userId">Индетификатор пользователя</param>
+        /// <returns>Выходная модель заметки</returns>
+        /// </summary>
+        public async Task<NoteModel> GetNote(Guid noteGuid, string userId)
         {
             var note = await _context.Notes.AsNoTracking()
-                .FirstAsync(x => x.NoteGuid == noteGuid && x.UserId == userid);
+                .FirstAsync(x => x.NoteGuid == noteGuid && x.UserId == userId);
             
             return _mapper.Map<Note, NoteModel>(note);
         }
 
-        public async Task<List<NoteModel>> GetNotes(string search, string userid)
+        /// <summary>
+        /// Получение всех заметок для конкретного  пользователя
+        /// <param name="search">Строка для поиска по содержимому заметки</param>
+        /// <param name="userId">Индетификатор пользователя</param>
+        /// <returns>Список выходных моделей заметок</returns>
+        /// </summary>
+        public async Task<List<NoteModel>> GetNotes(string search, string userId)
         {
-            var result = _context.Notes.AsNoTracking().Where(x => x.UserId == userid);
+            var result = _context.Notes.AsNoTracking().Where(x => x.UserId == userId);
 
             if (!string.IsNullOrEmpty(search))
             {

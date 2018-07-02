@@ -30,6 +30,8 @@ namespace AstralNotes.API.Controllers
         
       
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         [Route("Registration")]
         public async Task<IActionResult> Registration(UserInfo model)
         {
@@ -111,11 +113,5 @@ namespace AstralNotes.API.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-        
-        [Authorize]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        [Route("AccessDenied")]
-        [HttpGet]
-        public IActionResult AccessDenied() => View();
     }
 }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AstralNotes.Database.Entities;
-using AstralNotes.Domain.Users.Models;
 
 namespace AstralNotes.Domain.Users
 {
+    /// <summary>
+    /// Интерфейс сервиса для работы с пользователями
+    /// </summary>
     public interface IUserService
     {
         Task<User> GetCurrentUserAsync();

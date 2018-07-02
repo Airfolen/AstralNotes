@@ -10,6 +10,7 @@ namespace AstralNotes.Utils.DiceBearAvatars
     {
         /// <summary>
         /// Запрос на создание
+        /// </summary>
         /// <returns></returns>
         Task<Stream> GetAsync(string seed);
     }

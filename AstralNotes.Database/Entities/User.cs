@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using AstralNotes.Database.Enums;
 using Microsoft.AspNetCore.Identity;
 
 namespace AstralNotes.Database.Entities

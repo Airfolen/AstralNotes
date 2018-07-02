@@ -5,6 +5,9 @@ using AstralNotes.Domain.Users.Models;
 
 namespace AstralNotes.Domain.Notes.Models
 {
+    /// <summary>
+    /// Выходная модель заметки
+    /// </summary>
     public class NoteModel
     {
         public Guid NoteGuid { get; set; }

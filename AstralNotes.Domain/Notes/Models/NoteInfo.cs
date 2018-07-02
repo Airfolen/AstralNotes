@@ -4,6 +4,9 @@ using AstralNotes.Database.Enums;
 
 namespace AstralNotes.Domain.Notes.Models
 {
+    /// <summary>
+    /// Входная модель заметки
+    /// </summary>
     public class NoteInfo
     {
         [Required]

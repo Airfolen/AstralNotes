@@ -5,11 +5,9 @@ namespace AstralNotes.Utils.DiceBearAvatars.Extensions
     public static class ServicesExtensions
     {
         /// <summary>
-        /// Добавляет Dice Bear Avatars
+        /// Добавление Dice Bear Avatars в DI
         /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddAvatars(this IServiceCollection services)
+        public static IServiceCollection AddDiceBearAvatars(this IServiceCollection services)
         {
             services.AddScoped<IAvatarProvider, AvatarProvider>();
          

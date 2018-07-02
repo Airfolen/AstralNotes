@@ -5,11 +5,14 @@ namespace AstralNotes.Utils.FileStore
 {
     public static class ServicesExtensions
     {
-        public static IServiceCollection AddLocalFileStore(this IServiceCollection services, Action<LocalFileStorageOptions> setup)
+        /// <summary>
+        /// Добавление локального хранилиша файлов в DI
+        /// </summary>
+        public static IServiceCollection AddLocalFileStore(this IServiceCollection services, Action<LocalFileStorageСharacteristics> setup)
         {
-            var options = new LocalFileStorageOptions();
-            setup?.Invoke(options);
-            services.AddSingleton(options);
+            var сharacteristics = new LocalFileStorageСharacteristics();
+            setup?.Invoke(сharacteristics);
+            services.AddSingleton(сharacteristics);
 
             services.AddScoped<IFileStorage, LocalFileStorage>();
 

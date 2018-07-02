@@ -3,6 +3,9 @@ using System.IO;
 
 namespace AstralNotes.Domain.Avatars.Models
 {
+    /// <summary>
+    /// Модель DiceBear аватара 
+    /// </summary>
     public class AvatarModel
     {
         public Guid AvatarGuid { get; set; }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using AstralNotes.Database;
 using AstralNotes.Database.Entities;
@@ -7,8 +6,6 @@ using AstralNotes.Domain;
 using AstralNotes.Utils.DiceBearAvatars.Extensions;
 using AstralNotes.Utils.FileStore;
 using AstralNotes.Utils.Filters;
-using AstralNotes.Utils.Swagger;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,16 +15,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace AstralNotes.API
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-        
-        public IHostingEnvironment Environment { get; }
+        private IConfiguration Configuration { get; }
+
+        private IHostingEnvironment Environment { get; }
         
         public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
@@ -48,7 +45,7 @@ namespace AstralNotes.API
             
             //Services
             services.Initialization();
-            services.AddAvatars();
+            services.AddDiceBearAvatars();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //Authentication
@@ -67,9 +64,9 @@ namespace AstralNotes.API
                 options.Cookie.Expiration = TimeSpan.FromDays(150);
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/Logout";
-                options.AccessDeniedPath = "/Account/AccessDenied"; 
                 options.SlidingExpiration = true;
             });
+            
             //MVC
             services.AddMvc(options =>
             {
@@ -80,16 +77,24 @@ namespace AstralNotes.API
             services.AddCors(options => options.AddPolicy("AllowAll", 
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
             
-            services.AddSwagger(
-                xmlComments: new List<string>{"AstralNotes.API.xml"}, 
-                info: new Info {
-                    Version = "v1",
-                    Title = "Core API"
-                });
-            
-            services.AddLocalFileStore(options =>
+            //Swagger
+            services.AddSwaggerGen(a =>
             {
-                options.RootPath = Path.Combine(Environment.ContentRootPath, "LocalFileStore");
+                a.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "Astral Notes",
+                    Description = "ASP.NET Core Web API"
+                });
+
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var xmlPath = Path.Combine(basePath, "AstralNotes.API.xml");
+                a.IncludeXmlComments(xmlPath);
+            });
+            
+            services.AddLocalFileStore(characteristics =>
+            {
+                characteristics.RootPath = Path.Combine(Environment.ContentRootPath, "LocalFileStore");
             });
         }
 
@@ -97,7 +102,14 @@ namespace AstralNotes.API
         {
             if (Environment.IsDevelopment() || Environment.IsStaging())
             {
-                app.UseSwagger("Core API v1");
+                app.UseSwagger();
+
+                app.UseSwaggerUI(options =>
+                {
+                    options.DocExpansion("full");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core API v1");
+                    options.RoutePrefix = "swagger";
+                });
                 loggerFactory.AddDebug();
             }
             

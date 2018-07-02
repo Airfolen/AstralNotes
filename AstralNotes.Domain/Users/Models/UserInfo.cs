@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using AstralNotes.Database.Enums;
 
 namespace AstralNotes.Domain.Users.Models
 {
+    /// <summary>
+    /// Входная модель пользователя
+    /// </summary>
     public class UserInfo
     {  
         [Required]

@@ -6,7 +6,6 @@ using MimeTypes;
 
 namespace AstralNotes.API.Controllers
 {
-    /// <inheritdoc />
     /// <summary>
     /// API для работы с аватарами для заметок
     /// </summary>
@@ -19,22 +18,12 @@ namespace AstralNotes.API.Controllers
         {
             _avatarService = avatarService;
         }
-
-       
-        [HttpPost("{seed}")]
-        public async Task<Guid> Create([FromRoute] Guid seed)
-        {
-            return await _avatarService.SaveAvatar(seed.ToString());
-        }
-
-       
-        [HttpDelete("{avatarGuid}")]
-        public async Task Delete(Guid avatarGuid)
-        {
-            await _avatarService.Remove(avatarGuid);
-        }
-    
-      
+        
+        /// <summary>
+        /// Получение DiceBear аватара
+        /// <param name="avatarGuid">Индетификатор аватара</param>
+        /// <returns>Поток файла System.IO.Stream</returns>
+        /// </summary>
         [HttpGet("{avatarGuid}")]
         public async Task<FileStreamResult> GetAvatar (Guid avatarGuid)
         {

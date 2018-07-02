@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AstralNotes.Domain.Notes;
 using AstralNotes.Domain.Notes.Models;
@@ -10,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AstralNotes.API.Controllers
 {
-    /// <inheritdoc />
     /// <summary>
     /// API для работы с заметками
     /// </summary>
@@ -82,21 +79,6 @@ namespace AstralNotes.API.Controllers
             
             var note = await _noteService.GetNote(noteGuid, user.Id);
             return View(note);
-        }
-
-        /// <summary>
-        /// Получение заметок
-        /// </summary>
-        /// <param name="search">Строка поиска по полю : Content</param>
-        /// <param name="userId">Идентификатор пользователя</param>
-        /// <returns>Коллекция объектов отсортированная по полю : CreationDate</returns>
-        [HttpGet("{userId}")]
-        [Authorize]
-        public async Task<List<NoteModel>> GetNotes([FromQuery] string search, [FromRoute] string userId)
-        {
-            var result = await _noteService.GetNotes(search, userId);
-            
-            return  result.OrderBy(x => x.CreationDate).ToList();
         }
     }
 }

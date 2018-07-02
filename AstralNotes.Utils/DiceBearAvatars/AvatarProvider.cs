@@ -31,7 +31,7 @@ namespace AstralNotes.Utils.DiceBearAvatars
                 throw new HttpRequestException($"Запрос на DiceBear Avatars API завершился ошибкой. " +
                                                $"Статус код:{result.StatusCode}. Сообщение исключения:{result.Content}");
             
-            return result.Content.ReadAsStreamAsync().Result;
+            return await result.Content.ReadAsStreamAsync();
         }
 
         public void Dispose()

@@ -31,7 +31,7 @@
                     {
                         <a class="btn btn-default btn-sm navbar-btn navbar-right" asp-controller="Account" asp-action="LogOut">Выход</a>
                         <a class="btn btn-default btn-sm navbar-btn navbar-right" asp-controller="Note" asp-action="Create">Создать заметку</a>
-                        <li class="navbar-text">@User.Identity.Name</li>
+                        <li class="navbar-text">@UserService.GetCurrentUserAsync().Result.FullName</li>
                     }
                     else
                     {

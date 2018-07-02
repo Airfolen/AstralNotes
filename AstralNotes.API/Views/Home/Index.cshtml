@@ -1,4 +1,5 @@
-﻿@model AstralNotes.API.ViewModels.HomeView
+﻿@using AstralNotes.Database.Enums
+@model AstralNotes.API.ViewModels.HomeView
 @inject AstralNotes.Domain.Notes.INoteService NoteService
 @{
     ViewData["Title"] = "Home Page";
@@ -10,6 +11,9 @@
         <form method="get">
             <div class="form-inline form-group">
                 @Html.TextBox("Search", Model.NoteFilter.Search, htmlAttributes: new {@class = "form-control", @placeholder="Поиск по содержимому..."})
+                @Html.DropDownList("Category", new SelectList(new NoteCategory[] 
+                    {NoteCategory.General,NoteCategory.Diary, NoteCategory.Work}), 
+                        new {@class = "form-control"})
                 <input type="submit" value="Поиск" class="btn btn-default"/>
             </div>
         </form>

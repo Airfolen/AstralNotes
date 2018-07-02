@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AstralNotes.Domain.Users
 {
+    /// <summary>
+    /// Сервис для управления пользователями
+    /// </summary>
     public class UserService : IUserService
     {
         private readonly UserManager<User> _userManager;
@@ -16,6 +19,10 @@ namespace AstralNotes.Domain.Users
             _httpContextAccessor = httpContextAccessor;
         }
         
-        public Task<User> GetCurrentUserAsync() => _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+        /// <summary>
+        /// Получение текущего пользователя
+        /// <returns>Модель пользователя</returns>
+        /// </summary>
+        public async Task<User> GetCurrentUserAsync() => await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
     }
 }

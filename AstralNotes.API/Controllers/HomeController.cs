@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using AstralNotes.API.Migrations;
 using AstralNotes.API.ViewModels;
-using AstralNotes.Database.Entities;
-using AstralNotes.Domain.Avatars;
+using AstralNotes.Database.Enums;
 using AstralNotes.Domain.Notes;
 using AstralNotes.Domain.Notes.Models;
 using AstralNotes.Domain.Users;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MimeTypes;
 
 namespace AstralNotes.API.Controllers
 {
@@ -31,20 +24,24 @@ namespace AstralNotes.API.Controllers
         }
         
         /// <summary>
-        /// Получение заметок
+        /// Получение заметок на главной странице
+        /// <param name="search">Параметр для поиска по содержимому заметок</param>
+        /// <param name="category">Параметр для фильтрации заметок</param>
         /// </summary>
-        public async Task<IActionResult> Index(string search)
+        public async Task<IActionResult> Index(string search, NoteCategory category)
         {
             if (User.Identity.IsAuthenticated)
             {
-                var user = _userService.GetCurrentUserAsync();
+                var user = await _userService.GetCurrentUserAsync();
 
-                var notes = await _noteService.GetNotes(search, user.Result.Id);
+                var notes = await _noteService.GetNotes(search, user.Id);
 
+                notes = notes.Where(note => note.Category == category).ToList();
+                
                 var viewModel = new HomeView
                 {
                     NoteModels = notes,
-                    NoteFilter = new NoteFilter(search)
+                    NoteFilter = new NoteFilter(search, category)
                 };
                 
                 return View(viewModel);
