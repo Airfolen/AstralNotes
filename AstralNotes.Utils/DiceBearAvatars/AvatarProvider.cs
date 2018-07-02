@@ -28,8 +28,8 @@ namespace AstralNotes.Utils.DiceBearAvatars
             var result = await _httpClient.GetAsync($"identicon/{seed}.svg");
             
             if (!result.IsSuccessStatusCode)
-                throw new HttpRequestException($"Запрос на DiceBear Avatars API завершился ошибкой. " +
-                                               $"Статус код:{result.StatusCode}. Сообщение исключения:{result.Content}");
+                throw new HttpRequestException($"Запрос на DiceBear Avatars API завершился ошибкой," +
+                                               $" сообщение исключения:{result.Content}");
             
             return await result.Content.ReadAsStreamAsync();
         }
