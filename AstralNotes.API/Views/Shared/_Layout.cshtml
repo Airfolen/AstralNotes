@@ -23,14 +23,10 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AstralNotes</a>
             </div>
             <div class="navbar-collapse collapse">   
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
                         <a class="btn btn-default btn-sm navbar-btn navbar-right" asp-controller="Account" asp-action="LogOut">Выход</a>
-                        <a class="btn btn-default btn-sm navbar-btn navbar-right" asp-controller="Note" asp-action="Create">Создать заметку</a>
                         <li class="navbar-text">@UserService.GetCurrentUserAsync().Result.FullName</li>
                     }
                     else
@@ -44,11 +40,11 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>    
-            <div class="DivFooter col-md-6 col-md-offset-3">  <p>&copy; 2018 - AstralNotes</p></div>
-        </footer>
     </div>
+    <footer>  
+    <hr class="Line" />
+    <div class="DivFooter col-md-6 col-md-offset-3">  <p>&copy; 2018 - AstralNotes</p></div>
+    </footer>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

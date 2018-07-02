@@ -28,14 +28,36 @@ namespace AstralNotes.API.Controllers
         /// <param name="search">Параметр для поиска по содержимому заметок</param>
         /// <param name="category">Параметр для фильтрации заметок</param>
         /// </summary>
-        public async Task<IActionResult> Index(string search, NoteCategory category)
+        public async Task<IActionResult> Index(string search, string category)
         {
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userService.GetCurrentUserAsync();
                 var notes = await _noteService.GetNotes(search, user.Id);
 
-                notes = notes.Where(note => note.Category == category).ToList();
+                switch (category)
+                {
+                    case "Общая":
+                    {
+                        notes = notes.Where(note => note.Category == NoteCategory.General).ToList();
+                        break;
+                    }
+                    case "Ежедневник":
+                    {
+                        notes = notes.Where(note => note.Category == NoteCategory.Diary).ToList();
+                        break;
+                    }
+                    case "Работа":
+                    {
+                        notes = notes.Where(note => note.Category == NoteCategory.Work).ToList();
+                        break;
+                    }
+                    default:
+                    {
+                        notes = notes.Where(note => note.Category == NoteCategory.General).ToList();
+                        break;
+                    }
+                }
                 
                 var viewModel = new HomeView
                 {
@@ -46,7 +68,7 @@ namespace AstralNotes.API.Controllers
                 return View(viewModel);
             }
 
-            return View();
+            return RedirectToAction("Login", "Account");
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿@using AstralNotes.Database.Enums
-@model AstralNotes.API.ViewModels.HomeView
+﻿@model AstralNotes.API.ViewModels.HomeView
 @inject AstralNotes.Domain.Notes.INoteService NoteService
 @{
     ViewData["Title"] = "Home Page";
@@ -11,12 +10,13 @@
         <form method="get">
             <div class="form-inline form-group">
                 @Html.TextBox("Search", Model.NoteFilter.Search, htmlAttributes: new {@class = "form-control", @placeholder="Поиск по содержимому..."})
-                @Html.DropDownList("Category", new SelectList(new NoteCategory[] 
-                    {NoteCategory.General,NoteCategory.Diary, NoteCategory.Work}), 
-                        new {@class = "form-control"})
+                @Html.DropDownList("Category", new SelectList(new string[] {"Общая", "Ежедневник", "Работа"}), 
+                    new {@class = "form-control"})
                 <input type="submit" value="Поиск" class="btn btn-default"/>
+                <a class="CreateNoteLink btn btn-default  navbar-right" asp-controller="Note" asp-action="Create">Создать заметку</a>
             </div>
         </form>
+        
         
         <div class="NoteList">
             @foreach (var note in Model.NoteModels)
@@ -35,13 +35,12 @@
 @*                                Удалить*@
 @*                            </button>*@
 @*                        </form>*@
-                       
-                        <a href="http://localhost:5000/Note/Remove/@note.NoteGuid">
+                        <a class="NoteFooter1 "href="http://localhost:5000/Note/Remove/@note.NoteGuid">
                             <button type="submit" class="btn btn-sm btn-danger">
                                 Удалить
                             </button>
                         </a>
-                        <span>@note.CreationDate.ToString("d")</span>
+                        <span class="NoteFooter2">@note.CreationDate.ToString("d")</span>
                     </div>
                 </div>
             }
