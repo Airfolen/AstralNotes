@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AstralNotes.API.ViewModels;
 using AstralNotes.Database.Enums;
@@ -28,36 +29,14 @@ namespace AstralNotes.API.Controllers
         /// <param name="search">Параметр для поиска по содержимому заметок</param>
         /// <param name="category">Параметр для фильтрации заметок</param>
         /// </summary>
-        public async Task<IActionResult> Index(string search, string category)
+        public async Task<IActionResult> Index(string search, string category = "Все")
         {
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userService.GetCurrentUserAsync();
                 var notes = await _noteService.GetNotes(search, user.Id);
 
-                switch (category)
-                {
-                    case "Общая":
-                    {
-                        notes = notes.Where(note => note.Category == NoteCategory.General).ToList();
-                        break;
-                    }
-                    case "Ежедневник":
-                    {
-                        notes = notes.Where(note => note.Category == NoteCategory.Diary).ToList();
-                        break;
-                    }
-                    case "Работа":
-                    {
-                        notes = notes.Where(note => note.Category == NoteCategory.Work).ToList();
-                        break;
-                    }
-                    default:
-                    {
-                        notes = notes.Where(note => note.Category == NoteCategory.General).ToList();
-                        break;
-                    }
-                }
+                notes = SortByCategory(notes, category);
                 
                 var viewModel = new HomeView
                 {
@@ -69,6 +48,30 @@ namespace AstralNotes.API.Controllers
             }
 
             return RedirectToAction("Login", "Account");
+        }
+        
+        private List<NoteModel> SortByCategory(List<NoteModel> notes, string sortNoteBy)
+        {
+            switch (sortNoteBy)
+            {
+                case "Общая":
+                {
+                    notes = notes.Where(note => note.Category == NoteCategory.General).ToList();
+                    break;
+                }
+                case "Ежедневник":
+                {
+                    notes = notes.Where(note => note.Category == NoteCategory.Diary).ToList();
+                    break;
+                }
+                case "Работа":
+                {
+                    notes = notes.Where(note => note.Category == NoteCategory.Work).ToList();
+                    break;
+                }
+            }
+            
+            return notes;
         }
     }
 }
