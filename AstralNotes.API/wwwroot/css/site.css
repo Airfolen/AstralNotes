@@ -22,18 +22,18 @@ footer {
     padding: 50px 10px 10px 10px;
 }
 
-.NoteText{
-    word-break:break-all;    
-}
-
-.NoteTitle{
-    min-height: 1px;
+.ghost-button {
+    background: Transparent no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }
 
 .SingleNote{
     text-align: center;
-    margin-left: 15%;
-    width: 70%;
+    margin-left: 20%;
+    width: 60%;
     float: left;
     position: relative;
     min-height: 50px;
@@ -41,13 +41,50 @@ footer {
     padding-left: 18px;
 }
 
+.SingleNoteText{
+    padding: 0 20px 5px 20px;
+}
+
+.NoteList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.Note{
+    width: 30%;
+    display: block;
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    position: relative;
+}
+
+.NoteTitle{
+    text-align: center;
+}
+
+.NoteText{
+    word-break:break-all;
+    padding: 0 5px 40px 5px;
+}
+
+.NoteFooter{
+    position:absolute;
+    bottom:0;
+    padding: 0 0 10px 5px;
+}
 
 .WelcomeText{
     padding: 30px 10px 30px 10px;
     margin: 0px 100px 20px 100px;
-    background: #3c3c3c;
-    color: white;
+    background: white;
+    color: #0f0f0f;
 }
+
 
 .DivFooter{
     padding-top: 25px;

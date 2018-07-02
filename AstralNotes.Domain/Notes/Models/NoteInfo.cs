@@ -11,6 +11,7 @@ namespace AstralNotes.Domain.Notes.Models
         public string Content { get; set; }
         
         [Display(Name = "Заголовок")]
+        [MaxLength(40)]
         public string Title { get; set; }
         
         [Required]

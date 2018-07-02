@@ -1,10 +1,12 @@
 ﻿@model AstralNotes.Domain.Notes.Models.NoteModel
 
 <div class="clearfix ">
-    <h1 align="center" class="SingleNote col-md-6 col-md-offset-3">Просмотр заметки</h1>
+    <h1 align="center" class="SingleNote col-md-6 col-md-offset-3"><b>Просмотр заметки</b></h1>
     <div class="SingleNote col-md-6 col-md-offset-3">
-        <div class="thumbnail">
-            <h2>@Model.Content</h2>
+        <div class="SingleNoteText thumbnail">
+            <h2><b>@Model.Title</b></h2>
+            <h3>@Model.Content</h3>
+            <h4>Заметка создана: @Model.CreationDate.ToString("f")</h4>
         </div>
     </div>
    <div class="SingleNote col-md-6 col-md-offset-3"></div>

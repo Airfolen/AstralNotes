@@ -29,9 +29,9 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <a class="btn btn-default btn-sm navbar-btn navbar-right" asp-controller="Account" asp-action="LogOut">Выход</a>
                         <a class="btn btn-default btn-sm navbar-btn navbar-right" asp-controller="Note" asp-action="Create">Создать заметку</a>
                         <li class="navbar-text">@User.Identity.Name</li>
-                        <a class="btn btn-default btn-sm navbar-btn navbar-right" asp-controller="Account" asp-action="LogOut">Выход</a>
                     }
                     else
                     {

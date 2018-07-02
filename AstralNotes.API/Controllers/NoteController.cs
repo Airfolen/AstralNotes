@@ -60,7 +60,7 @@ namespace AstralNotes.API.Controllers
         /// Удаление заметки
         /// </summary>
         /// <param name="noteGuid">Идентификатор заметки</param>
-        [HttpPost("Delete/{noteGuid}")]
+        [HttpGet("Delete/{noteGuid}")]
         [Authorize]
         public async Task<IActionResult> Delete(Guid noteGuid)
         {
@@ -72,19 +72,9 @@ namespace AstralNotes.API.Controllers
         /// <summary>
         /// Получение заметки
         /// </summary>
-        [HttpGet]
-        [HttpGet("{noteGuid}")]
-        public IActionResult GetNote()
-        {
-            return View();
-        }
-        
-        /// <summary>
-        /// Получение заметки
-        /// </summary>
         /// <param name="noteGuid">Идентификатор заметки</param>
         /// <returns>Выходная модель заметки</returns>
-        [HttpPost("{noteGuid}")]
+        [HttpGet("{noteGuid}")]
         [Authorize]
         public async Task<IActionResult> GetNote([FromRoute] Guid noteGuid)
         {
