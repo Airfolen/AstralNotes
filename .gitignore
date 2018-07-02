@@ -242,5 +242,4 @@ ModelManifest.xml
 .fake/
 
 .idea/
-/Kvantorium/Kvantorium.Web/wwwroot/Dist
-/Kvantorium/Kvantorium.Core.API/LocalFileStore
+/AstralNotes.API/LocalFileStore
