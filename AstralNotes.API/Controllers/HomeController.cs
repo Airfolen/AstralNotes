@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AstralNotes.API.Controllers
 {
     /// <summary>
-    /// Редирект на главную сраницу
+    /// API для взаимодействия с пользователем на главной странице
     /// </summary>
     public class HomeController : Controller
     {

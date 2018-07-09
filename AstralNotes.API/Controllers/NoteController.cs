@@ -27,7 +27,6 @@ namespace AstralNotes.API.Controllers
         /// Создание заметки
         /// </summary>
         [HttpGet]
-        [ApiExplorerSettings(IgnoreApi = true)]
         [Route("Create")]
         public IActionResult Create()
         {

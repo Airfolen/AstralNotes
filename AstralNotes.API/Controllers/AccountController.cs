@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AstralNotes.API.Controllers
 {
+    /// <summary>
+    /// API для регистрации и авторизации пользователей
+    /// </summary>
     [Route("Account")]
     public class AccountController : Controller
     {
@@ -20,19 +23,24 @@ namespace AstralNotes.API.Controllers
             _signInManager = signInManager;
         }
         
+        /// <summary>
+        /// Регистрация пользователя
+        /// </summary>
         [HttpGet]
-        [ApiExplorerSettings(IgnoreApi = true)]
         [Route("Registration")]
         public IActionResult Registration()
         {
             return View();
         }
         
-      
+        /// <summary>
+        /// Регистрация пользователя
+        /// <param name="model">Входная модель пользователя</param>
+        /// </summary>
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [AllowAnonymous]
         [Route("Registration")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registration(UserInfo model)
         {
             if(ModelState.IsValid)
@@ -67,7 +75,6 @@ namespace AstralNotes.API.Controllers
         /// </summary>
         /// <param name="returnUrl">Адрес для возврата</param>
         [HttpGet]
-        [ApiExplorerSettings(IgnoreApi = true)]
         [Route("Login")]
         public IActionResult Login(string returnUrl = null)
         {
@@ -84,9 +91,9 @@ namespace AstralNotes.API.Controllers
         /// </summary>
         /// <param name="model">Модель аутентификации</param>
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [AllowAnonymous]
         [Route("Login")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(SignInModel model)
         {
             if (ModelState.IsValid)
@@ -114,9 +121,11 @@ namespace AstralNotes.API.Controllers
             return View(model);
         }
  
-        [Authorize]
-        [ApiExplorerSettings(IgnoreApi = true)]
+        /// <summary>
+        /// Выход из учетной записи пользователя
+        /// </summary>  
         [HttpGet]
+        [Authorize]
         [Route("LogOut")]
         public async Task<IActionResult> LogOut()
         {

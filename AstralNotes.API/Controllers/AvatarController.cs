@@ -23,7 +23,7 @@ namespace AstralNotes.API.Controllers
         /// <summary>
         /// Получение DiceBear аватара
         /// <param name="avatarGuid">Индетификатор аватара</param>
-        /// <returns>Поток файла System.IO.Stream</returns>
+        /// <returns>Поток файла System.IO.Stream с расширением</returns>
         /// </summary>
         [Authorize]
         [HttpGet("{avatarGuid}")]
