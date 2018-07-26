@@ -10,13 +10,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.PlatformAbstractions;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace AstralNotes.API
 {
@@ -71,22 +70,7 @@ namespace AstralNotes.API
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(ExceptionFilter));
-            });
-            
-            //Swagger
-            services.AddSwaggerGen(a =>
-            {
-                a.SwaggerDoc("v1", new Info
-                {
-                    Version = "v1",
-                    Title = "Astral Notes",
-                    Description = "ASP.NET Core Web API"
-                });
-
-                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                var xmlPath = Path.Combine(basePath, "AstralNotes.API.xml");
-                a.IncludeXmlComments(xmlPath);
-            });
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);; 
             
             services.AddLocalFileStore(characteristics =>
             {
@@ -96,14 +80,6 @@ namespace AstralNotes.API
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseSwagger();
-
-            app.UseSwaggerUI(options =>
-            {
-                options.DocExpansion("full");
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core API v1");
-                options.RoutePrefix = "swagger";
-            });
             loggerFactory.AddDebug();
             
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -111,6 +87,8 @@ namespace AstralNotes.API
             app.UseCors("AllowAll");
 
             app.UseStaticFiles();
+            
+            app.UseCookiePolicy();
             
             app.UseAuthentication();
 

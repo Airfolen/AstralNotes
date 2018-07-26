@@ -10,7 +10,6 @@ namespace AstralNotes.Utils.Filters
     /// </summary>
     public class ExceptionFilter : IExceptionFilter
     {
-        /// <summary/>
         public void OnException(ExceptionContext context)
         {
             var response = context.HttpContext.Response;
