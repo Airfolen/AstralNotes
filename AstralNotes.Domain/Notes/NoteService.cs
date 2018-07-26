@@ -74,10 +74,10 @@ namespace AstralNotes.Domain.Notes
         /// <param name="userId">Индетификатор пользователя</param>
         /// <returns>Выходная модель заметки</returns>
         /// </summary>
-        public async Task<NoteModel> GetNote(Guid noteGuid, string userId)
+        public async Task<NoteModel> GetNote(Guid noteGuid)
         {
             var note = await _context.Notes.AsNoTracking()
-                .FirstAsync(x => x.NoteGuid == noteGuid && x.UserId == userId);
+                .FirstAsync(x => x.NoteGuid == noteGuid);
             
             return _mapper.Map<Note, NoteModel>(note);
         }

@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstralNotes.Utils", "Astral
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstralNotes.API", "AstralNotes.API\AstralNotes.API.csproj", "{6C3FE0C6-13EB-444D-9D82-68982548A8E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstralNotes.Tests", "AstralNotes.Tests\AstralNotes.Tests.csproj", "{14A71F71-AE08-4E89-8F9A-D127675D001A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{6C3FE0C6-13EB-444D-9D82-68982548A8E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C3FE0C6-13EB-444D-9D82-68982548A8E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C3FE0C6-13EB-444D-9D82-68982548A8E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14A71F71-AE08-4E89-8F9A-D127675D001A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14A71F71-AE08-4E89-8F9A-D127675D001A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14A71F71-AE08-4E89-8F9A-D127675D001A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14A71F71-AE08-4E89-8F9A-D127675D001A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -73,10 +73,6 @@ namespace AstralNotes.API
                 options.Filters.Add(typeof(ExceptionFilter));
             });
             
-            //CORS
-            services.AddCors(options => options.AddPolicy("AllowAll", 
-                builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
-            
             //Swagger
             services.AddSwaggerGen(a =>
             {
@@ -100,18 +96,15 @@ namespace AstralNotes.API
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            if (Environment.IsDevelopment() || Environment.IsStaging())
-            {
-                app.UseSwagger();
+            app.UseSwagger();
 
-                app.UseSwaggerUI(options =>
-                {
-                    options.DocExpansion("full");
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core API v1");
-                    options.RoutePrefix = "swagger";
-                });
-                loggerFactory.AddDebug();
-            }
+            app.UseSwaggerUI(options =>
+            {
+                options.DocExpansion("full");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Core API v1");
+                options.RoutePrefix = "swagger";
+            });
+            loggerFactory.AddDebug();
             
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             

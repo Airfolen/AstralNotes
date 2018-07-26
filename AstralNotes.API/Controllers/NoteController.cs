@@ -74,8 +74,7 @@ namespace AstralNotes.API.Controllers
         [Authorize]
         public async Task<IActionResult> Get([FromRoute] Guid noteGuid)
         {
-            var user = await _userService.GetCurrentUserAsync();
-            var note = await _noteService.GetNote(noteGuid, user.Id);
+            var note = await _noteService.GetNote(noteGuid);
             
             return View(note);
         }

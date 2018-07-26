@@ -14,7 +14,7 @@ namespace AstralNotes.Domain.Notes
         
         Task Remove(Guid noteGuid);
         
-        Task<NoteModel> GetNote(Guid noteGuid, string userId);
+        Task<NoteModel> GetNote(Guid noteGuid);
 
         Task<List<NoteModel>> GetNotes(string search, string userId);
     }

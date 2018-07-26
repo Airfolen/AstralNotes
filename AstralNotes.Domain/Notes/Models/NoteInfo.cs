@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using AstralNotes.Database.Enums;
 
 namespace AstralNotes.Domain.Notes.Models
