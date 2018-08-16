@@ -31,6 +31,7 @@ namespace AstralNotes.Domain.Reports
 
         public byte[] GetPdfReport()
         {
+           PdfWriter.GetInstance(Document, MemoryStream);
            Document.Open();
 
             ReportHeader();
@@ -44,7 +45,7 @@ namespace AstralNotes.Domain.Reports
 
         private void ReportHeader()
         {
-            FontStyle = FontFactory.GetFont("Arial", 18, Font.BOLD);
+            FontStyle = FontFactory.GetFont("sylfaen", 18, Font.BOLD);
 
             PdfPCell = new PdfPCell(new Phrase("Your notes:", FontStyle))
             {
@@ -70,13 +71,13 @@ namespace AstralNotes.Domain.Reports
         {
             #region Table
 
-            FontStyle = FontFactory.GetFont("Arial", 12, Font.NORMAL);
+            FontStyle = FontFactory.GetFont(BaseFont.HELVETICA, 12, Font.NORMAL);
 
             var number = 1;
 
             foreach (var note in Notes)
             {
-                PdfPCell = new PdfPCell(new Phrase("Note - " + number++, FontStyle))
+                PdfPCell = new PdfPCell(new Phrase("Note # " + number++, FontStyle))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
