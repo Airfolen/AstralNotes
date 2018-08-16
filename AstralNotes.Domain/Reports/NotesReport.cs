@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using AstralNotes.Domain.Notes.Models;
 using iTextSharp.text;
@@ -15,31 +14,24 @@ namespace AstralNotes.Domain.Reports
         private PdfPCell PdfPCell { get; set; }
         private List<NoteModel> Notes { get; set; }
         private MemoryStream MemoryStream { get; set; }
-        private const int NumberOfTableColumns = 3;
+        private const int NumberOfTableColumns = 1;
      
         public NotesReport(List<NoteModel> notes)
         {
             Notes = notes;
             MemoryStream = new MemoryStream();
-        }
-
-        public byte[] GetPdfReport()
-        {
             Document = new Document(PageSize.A4, 40, 40, 20, 20);
+            
             PdfPTable = new PdfPTable(NumberOfTableColumns)
             {
                 WidthPercentage = 100,
                 HorizontalAlignment = Element.ALIGN_CENTER
             };
+        }
 
-
-//            var sylfaenpath = Environment.GetEnvironmentVariable("SystemRoot") + "\\fonts\\sylfaen.ttf";
-//            var sylfaen = BaseFont.CreateFont(sylfaenpath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-//            _fontStyle = new Font(sylfaen, 14, Font.NORMAL, BaseColor.BLUE);
-            
-            PdfWriter.GetInstance(Document, MemoryStream);
-            
-            Document.Open();
+        public byte[] GetPdfReport()
+        {
+           Document.Open();
 
             ReportHeader();
             ReportBody();
@@ -56,15 +48,12 @@ namespace AstralNotes.Domain.Reports
 
             PdfPCell = new PdfPCell(new Phrase("Your notes:", FontStyle))
             {
-                Border = 0,
                 HorizontalAlignment = Element.ALIGN_CENTER,
-                BackgroundColor = BaseColor.WHITE,
+                BackgroundColor = BaseColor.LIGHT_GRAY,
                 ExtraParagraphSpace = 0,
                 Colspan = NumberOfTableColumns
             };
             PdfPTable.AddCell(PdfPCell);
-            
-            PdfPTable.CompleteRow();
             
             PdfPCell = new PdfPCell(new Phrase(" ", FontStyle))
             {
@@ -75,32 +64,11 @@ namespace AstralNotes.Domain.Reports
                 Colspan = NumberOfTableColumns
             };
             PdfPTable.AddCell(PdfPCell);
-            
-            PdfPTable.CompleteRow();
         }
         
         private void ReportBody()
         {
-            #region Table Header
-
-            var tableColumns = new String[] {"Number", "Title", "Content"};
-            
-            FontStyle = FontFactory.GetFont("Arial", 12, Font.BOLD);
-
-            foreach (var tableColumn in tableColumns)
-            {
-                PdfPCell = new PdfPCell(new Phrase(tableColumn, FontStyle))
-                {
-                    HorizontalAlignment = Element.ALIGN_CENTER,
-                    VerticalAlignment = Element.ALIGN_MIDDLE,
-                    BackgroundColor = BaseColor.LIGHT_GRAY
-                };
-                PdfPTable.AddCell(PdfPCell);
-            }
-
-            #endregion
-
-            #region Table Body
+            #region Table
 
             FontStyle = FontFactory.GetFont("Arial", 12, Font.NORMAL);
 
@@ -108,7 +76,7 @@ namespace AstralNotes.Domain.Reports
 
             foreach (var note in Notes)
             {
-                PdfPCell = new PdfPCell(new Phrase(number++.ToString(), FontStyle))
+                PdfPCell = new PdfPCell(new Phrase("Note - " + number++, FontStyle))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
@@ -116,23 +84,35 @@ namespace AstralNotes.Domain.Reports
                 };
                 PdfPTable.AddCell(PdfPCell);
                 
-                PdfPCell = new PdfPCell(new Phrase(note.Title ?? "―――――", FontStyle))
+                PdfPCell = new PdfPCell(new Phrase("Title: \n\n" + note.Title, FontStyle))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    BackgroundColor = BaseColor.WHITE
+                    BackgroundColor = BaseColor.WHITE,
+                    Padding = 10
                 };
                 PdfPTable.AddCell(PdfPCell);
                 
-                PdfPCell = new PdfPCell(new Phrase(note.Content, FontStyle))
+                PdfPCell = new PdfPCell(new Phrase("Content: \n\n" + note.Content, FontStyle))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    BackgroundColor = BaseColor.WHITE
+                    BackgroundColor = BaseColor.WHITE,
+                    Padding = 20
+                    
+                };
+                PdfPTable.AddCell(PdfPCell);
+                
+                PdfPCell = new PdfPCell(new Phrase("\n\n", FontStyle))
+                {
+                    Border = 0,
+                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    BackgroundColor = BaseColor.WHITE,
+                    ExtraParagraphSpace = 0,
+                    Colspan = NumberOfTableColumns
                 };
                 PdfPTable.AddCell(PdfPCell);
             }
-
             #endregion
         }
     }
