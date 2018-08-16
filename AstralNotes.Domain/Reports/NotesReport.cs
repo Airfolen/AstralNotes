@@ -6,6 +6,9 @@ using iTextSharp.text.pdf;
 
 namespace AstralNotes.Domain.Reports
 {
+    /// <summary>
+    /// Класс для преобразования заметок в pdf документ
+    /// </summary>
     public class NotesReport
     {
         private Document Document { get; set; }
@@ -29,6 +32,10 @@ namespace AstralNotes.Domain.Reports
             };
         }
 
+        /// <summary>
+        /// Получение заметок в pdf документе
+        /// </summary>
+        /// <returns>Массив байт</returns>
         public byte[] GetPdfReport()
         {
            PdfWriter.GetInstance(Document, MemoryStream);
