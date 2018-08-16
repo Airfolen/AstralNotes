@@ -25,7 +25,6 @@
     <ProjectReference Include="..\AstralNotes.Utils\AstralNotes.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\Fonts" />
     <Folder Include="wwwroot\images" />
   </ItemGroup>
 </Project>

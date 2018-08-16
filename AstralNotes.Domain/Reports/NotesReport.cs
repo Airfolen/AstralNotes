@@ -77,7 +77,7 @@ namespace AstralNotes.Domain.Reports
 
             foreach (var note in Notes)
             {
-                PdfPCell = new PdfPCell(new Phrase("Note # " + number++, FontStyle))
+                PdfPCell = new PdfPCell(new Phrase("Note: " + number++, FontStyle))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
