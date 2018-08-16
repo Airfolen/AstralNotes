@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.1.1" />
     <PackageReference Include="bootstrap-select" Version="1.13.1" />
+    <PackageReference Include="iTextSharp" Version="5.5.13" />
     <PackageReference Include="MediaTypeMap.Core" Version="2.3.3" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.0" />
@@ -24,6 +25,7 @@
     <ProjectReference Include="..\AstralNotes.Utils\AstralNotes.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="wwwroot\Fonts" />
     <Folder Include="wwwroot\images" />
   </ItemGroup>
 </Project>

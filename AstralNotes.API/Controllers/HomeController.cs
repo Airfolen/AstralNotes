@@ -5,6 +5,7 @@ using AstralNotes.API.ViewModels;
 using AstralNotes.Database.Enums;
 using AstralNotes.Domain.Notes;
 using AstralNotes.Domain.Notes.Models;
+using AstralNotes.Domain.Reports;
 using AstralNotes.Domain.Users;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,6 +49,27 @@ namespace AstralNotes.API.Controllers
             }
 
             return RedirectToAction("Login", "Account");
+        }
+        
+        /// <summary>
+        /// Получение заметок в pdf
+        /// </summary>
+        /// <returns>Бинарный файл</returns>
+        [HttpGet("Report")]
+        public async Task<FileResult> GetPdfReport()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userService.GetCurrentUserAsync();
+                var notes = await _noteService.GetNotes(null, user.Id);
+
+                var notesReport = new NotesReport(notes);
+                var bytes = notesReport.GetPdfReport();
+
+                return File(bytes, "application/pdf", "Notes.pdf");
+            }
+
+            return null;
         }
         
         private List<NoteModel> SortByCategory(List<NoteModel> notes, string sortNoteBy)
