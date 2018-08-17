@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AstralNotes.API.ViewModels;
@@ -32,14 +33,17 @@ namespace AstralNotes.API.Controllers
         /// <param name="search">Параметр для поиска по содержимому заметок</param>
         /// <param name="category">Параметр для фильтрации заметок</param>
         /// </summary>
-        public async Task<IActionResult> Index(string search, string category = "Все")
+        public async Task<IActionResult> Index(string search, string category)
         {
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userService.GetCurrentUserAsync();
                 var notes = await _noteService.GetNotes(search, user.Id);
 
-                notes = SortByCategory(notes, category);
+                if(Enum.TryParse(category, out NoteCategory noteCategory))
+                {
+                    notes = notes.Where(note => note.Category == noteCategory).ToList();
+                }
                 
                 var viewModel = new HomeView
                 {
@@ -71,30 +75,6 @@ namespace AstralNotes.API.Controllers
             }
 
             return null;
-        }
-        
-        private List<NoteModel> SortByCategory(List<NoteModel> notes, string sortNoteBy)
-        {
-            switch (sortNoteBy)
-            {
-                case "Общая":
-                {
-                    notes = notes.Where(note => note.Category == NoteCategory.General).ToList();
-                    break;
-                }
-                case "Ежедневник":
-                {
-                    notes = notes.Where(note => note.Category == NoteCategory.Diary).ToList();
-                    break;
-                }
-                case "Работа":
-                {
-                    notes = notes.Where(note => note.Category == NoteCategory.Work).ToList();
-                    break;
-                }
-            }
-            
-            return notes;
         }
     }
 }

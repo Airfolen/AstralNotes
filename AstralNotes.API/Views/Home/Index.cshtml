@@ -10,7 +10,7 @@
         <form method="get">
             <div class="form-inline form-group">
                 @Html.TextBox("Search", Model.NoteFilter.Search, htmlAttributes: new {@class = "form-control", @placeholder="Поиск по содержимому..."})
-                @Html.DropDownList("Category", new SelectList(new string[] {"Все", "Общая", "Ежедневник", "Работа"}), 
+                @Html.DropDownList("Category", new SelectList(new string[] {"All", "General", "Diary", "Work"}), 
                     new {@class = "form-control"})
                 <input type="submit" value="Поиск" class="btn btn-default"/>
                 <a class="CreateNoteLink btn btn-default  navbar-right" asp-controller="Home" asp-action="GetPdfReport">Преобразовать заметки в pdf</a>
