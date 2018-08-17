@@ -14,9 +14,9 @@ namespace AstralNotes.Domain.Avatars
     /// </summary>
     public class AvatarService : IAvatarService
     {
-        private readonly NotesContext _context;
-        private readonly IAvatarProvider _avatarProvider;
-        private readonly IFileStorage _fileStorage;
+        readonly NotesContext _context;
+        readonly IAvatarProvider _avatarProvider;
+        readonly IFileStorage _fileStorage;
 
         public AvatarService(IAvatarProvider avatarProvider, NotesContext context, IFileStorage fileStorage)
         {

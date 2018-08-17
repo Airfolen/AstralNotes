@@ -13,7 +13,7 @@ namespace AstralNotes.API.Controllers
     [Route("Avaters")]
     public class AvatarController : Controller
     {
-        private readonly IAvatarService _avatarService;
+        readonly IAvatarService _avatarService;
 
         public AvatarController(IAvatarService avatarService)
         {

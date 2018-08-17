@@ -14,8 +14,8 @@ namespace AstralNotes.API.Controllers
     [Route("Note")]
     public class NoteController : Controller
     {
-        private readonly INoteService _noteService;
-        private readonly IUserService _userService;
+        readonly INoteService _noteService;
+        readonly IUserService _userService;
 
         public NoteController(INoteService noteService, IUserService userService)
         {

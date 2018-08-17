@@ -17,10 +17,10 @@ namespace AstralNotes.Domain.Notes
     /// </summary>
     public class NoteService : INoteService
     {
-        private readonly NotesContext _context;
-        private readonly IMapper _mapper;
-        private readonly IAvatarService _avatarService;
-        private const int DescriptionMaxLenght = 90;
+        readonly NotesContext _context;
+        readonly IMapper _mapper;
+        readonly IAvatarService _avatarService;
+        const int DescriptionMaxLenght = 90;
 
         public NoteService(NotesContext context, IMapper mapper, IAvatarService avatarService)
         {

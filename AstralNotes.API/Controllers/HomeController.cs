@@ -16,13 +16,15 @@ namespace AstralNotes.API.Controllers
     /// </summary>
     public class HomeController : Controller
     {
-        private readonly INoteService _noteService;
-        private readonly IUserService _userService;
+        readonly INoteService _noteService;
+        readonly IUserService _userService;
+        readonly INoteConverterService _noteConverterService;
 
-        public HomeController(INoteService noteService, IUserService userService)
+        public HomeController(INoteService noteService, IUserService userService, INoteConverterService noteConverterService)
         {
             _noteService = noteService;
             _userService = userService;
+            _noteConverterService = noteConverterService;
         }
         
         /// <summary>
@@ -63,8 +65,7 @@ namespace AstralNotes.API.Controllers
                 var user = await _userService.GetCurrentUserAsync();
                 var notes = await _noteService.GetNotes(null, user.Id);
 
-                var notesReport = new NotesReport(notes);
-                var bytes = notesReport.GetPdfReport();
+                var bytes = _noteConverterService.GetPdfDocument(notes);
 
                 return File(bytes, "application/pdf", "Notes.pdf");
             }

@@ -1,5 +1,6 @@
 using AstralNotes.Domain.Avatars;
 using AstralNotes.Domain.Notes;
+using AstralNotes.Domain.Reports;
 using AstralNotes.Domain.Users;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ namespace AstralNotes.Domain
             services.AddScoped<IAvatarService, AvatarService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<INoteService, NoteService>();
+            services.AddScoped<INoteConverterService, NoteConverterService>();
             
             services.AddAutoMapper(a =>
             {

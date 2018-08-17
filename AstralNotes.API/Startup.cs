@@ -4,6 +4,7 @@ using AstralNotes.Database;
 using AstralNotes.Database.Entities;
 using AstralNotes.Domain;
 using AstralNotes.Utils.DiceBearAvatars.Extensions;
+using AstralNotes.Utils.Documents.Extensions;
 using AstralNotes.Utils.FileStore;
 using AstralNotes.Utils.Filters;
 using Microsoft.AspNetCore.Builder;
@@ -45,6 +46,7 @@ namespace AstralNotes.API
             //Services
             services.Initialization();
             services.AddDiceBearAvatars();
+            services.AddITextSharpDocument();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //Authentication

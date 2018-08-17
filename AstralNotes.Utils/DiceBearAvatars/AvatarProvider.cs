@@ -10,7 +10,7 @@ namespace AstralNotes.Utils.DiceBearAvatars
     /// </summary>
     public class AvatarProvider : IAvatarProvider, IDisposable
     {
-        private readonly HttpClient _httpClient;
+        readonly HttpClient _httpClient;
 
         public AvatarProvider()
         {

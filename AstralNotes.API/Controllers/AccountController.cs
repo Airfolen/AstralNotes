@@ -14,8 +14,8 @@ namespace AstralNotes.API.Controllers
     [Route("Account")]
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        readonly UserManager<User> _userManager;
+        readonly SignInManager<User> _signInManager;
  
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {

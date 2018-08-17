@@ -13,8 +13,8 @@ namespace AstralNotes.Tests
 {
     public class AvatarServiceTests
     {
-        private readonly NotesContext _context;
-        private readonly AvatarService _avatarService;
+        readonly NotesContext _context;
+        readonly AvatarService _avatarService;
         
         public AvatarServiceTests()
         {

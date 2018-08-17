@@ -15,8 +15,8 @@ namespace AstralNotes.Tests
 {
     public class NoteServiceTests
     {
-        private readonly NotesContext _context;
-        private readonly NoteService _noteService;
+        readonly NotesContext _context;
+        readonly NoteService _noteService;
         
         public NoteServiceTests()
         {

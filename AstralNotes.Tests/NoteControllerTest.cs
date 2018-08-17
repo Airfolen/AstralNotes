@@ -12,7 +12,7 @@ namespace AstralNotes.Tests
 {
     public class NoteControllerTest
     {
-        private readonly NoteController _noteController;
+        readonly NoteController _noteController;
 
         public NoteControllerTest()
         {

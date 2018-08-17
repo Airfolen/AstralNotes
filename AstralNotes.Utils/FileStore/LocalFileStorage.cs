@@ -8,7 +8,7 @@ namespace AstralNotes.Utils.FileStore
     /// </summary>
     public class LocalFileStorage : IFileStorage
     {
-        private readonly LocalFileStorageСharacteristics _сharacteristics;
+        readonly LocalFileStorageСharacteristics _сharacteristics;
 
         public LocalFileStorage(LocalFileStorageСharacteristics сharacteristics)
         {
