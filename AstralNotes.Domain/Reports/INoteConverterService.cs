@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AstralNotes.Domain.Notes.Models;
 
 namespace AstralNotes.Domain.Reports
@@ -12,6 +13,6 @@ namespace AstralNotes.Domain.Reports
         /// Получение заметок в pdf документе
         /// </summary>
         /// <returns>Массив байт</returns>
-        byte[] GetPdfDocument(List<NoteModel> notes);
+        Task<byte[]> GetPdfDocumentAsync(List<NoteModel> notes);
     }
 }

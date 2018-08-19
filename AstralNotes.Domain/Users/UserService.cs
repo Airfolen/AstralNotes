@@ -10,8 +10,8 @@ namespace AstralNotes.Domain.Users
     /// </summary>
     public class UserService : IUserService
     {
-        private readonly UserManager<User> _userManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        readonly UserManager<User> _userManager;
+        readonly IHttpContextAccessor _httpContextAccessor;
 
         public UserService(UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
         {

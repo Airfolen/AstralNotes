@@ -93,7 +93,7 @@ namespace AstralNotes.Tests
         /// <summary>
         /// Имитация поведение model binder, ответственного за проверку модели
         /// </summary>
-        private void SimulateValidation(object model)
+        void SimulateValidation(object model)
         {
             var validationContext = new ValidationContext(model, null, null);
             var validationResults = new List<ValidationResult>();

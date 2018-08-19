@@ -69,8 +69,8 @@ namespace AstralNotes.Tests
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
                 _context.Files.FirstAsync(x => x.FileGuid == fileGuid));
         }
-        
-        private async void InitializeTestAvatars()
+
+        async void InitializeTestAvatars()
         {
             var notes = new List<File>
             {

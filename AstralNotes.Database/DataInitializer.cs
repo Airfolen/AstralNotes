@@ -8,8 +8,8 @@ namespace AstralNotes.Database
 {
     public class DataInitializer : IDataInitializer
     {
-        private readonly NotesContext _context;
-        private readonly UserManager<User> _userManager;
+        readonly NotesContext _context;
+        readonly UserManager<User> _userManager;
 
        public DataInitializer(NotesContext context,  UserManager<User> userManager)
         {
@@ -30,7 +30,7 @@ namespace AstralNotes.Database
         /// <summary>
         /// Добавление пользователей
         /// </summary>
-        private async Task SeedUsers()
+        async Task SeedUsers()
         {
             var users = new List<User>
             {

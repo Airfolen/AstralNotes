@@ -158,7 +158,7 @@ namespace AstralNotes.Tests
                 x.NoteGuid == new Guid("05ad7880-815f-4245-ac4e-21e24a7afd27")));
         }
 
-        private async void InitializeTestNotes()
+        async void InitializeTestNotes()
         {
             var notes = new List<Note>
             {
@@ -194,7 +194,7 @@ namespace AstralNotes.Tests
             }
         }
 
-        private void InitializeAutoMapper()
+        void InitializeAutoMapper()
         {
             Mapper.Initialize(cfg =>
             {

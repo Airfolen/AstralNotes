@@ -69,7 +69,7 @@ namespace AstralNotes.API.Controllers
                 var user = await _userService.GetCurrentUserAsync();
                 var notes = await _noteService.GetNotes(null, user.Id);
 
-                var bytes = _noteConverterService.GetPdfDocument(notes);
+                var bytes = await _noteConverterService.GetPdfDocumentAsync(notes);
 
                 return File(bytes, "application/pdf", "Notes.pdf");
             }
