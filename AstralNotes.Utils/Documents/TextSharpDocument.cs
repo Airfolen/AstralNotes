@@ -9,6 +9,7 @@ namespace AstralNotes.Utils.Documents
         PdfPTable PdfPTable { get; set; }
         PdfPCell PdfPCell { get; set; }
         
+        /// <inheritdoc/>
         public Document CreateDocument(Rectangle pageSize, int margingLeft, int margingRight, int margingTop, 
             int margingBottom)
         {
@@ -17,6 +18,7 @@ namespace AstralNotes.Utils.Documents
             return Document;
         }
 
+        /// <inheritdoc/>
         public PdfPTable CreateTable(int numberOfTableColumns, float widthPercentage, int horizontalAlignment)
         {
             PdfPTable = new PdfPTable(numberOfTableColumns)
@@ -28,6 +30,7 @@ namespace AstralNotes.Utils.Documents
             return PdfPTable;
         }
         
+        /// <inheritdoc/>
         public PdfPCell CreateCell(string text, Font fontStyle, BaseColor backgroundColor, float padding = 0, 
             int border = Rectangle.BOX, int horizontalAlignment = Element.ALIGN_CENTER,
             int verticalAlignment = Element.ALIGN_MIDDLE, int extraParagraphSpace = 0, int colspan = 0)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AstralNotes.Database;
 using AstralNotes.Database.Entities;
+using AstralNotes.Database.Enums;
 using AstralNotes.Domain.Avatars;
 using AstralNotes.Domain.Notes.Models;
 using AutoMapper;
@@ -29,12 +30,7 @@ namespace AstralNotes.Domain.Notes
             _avatarService = avatarService;
         }
 
-        /// <summary>
-        /// Создание заметки
-        /// <param name="model">Входная модель заметки</param>
-        /// <param name="userId">Индетификатор пользователя</param>
-        /// <returns>Индетификатор заметки</returns>
-        /// </summary>
+        /// <inheritdoc/>
         public async Task<Guid> Create(NoteInfo model, string userId)
         {
             var note = _mapper.Map<NoteInfo, Note>(model);
@@ -54,10 +50,7 @@ namespace AstralNotes.Domain.Notes
             return note.NoteGuid;
         }
 
-        /// <summary>
-        /// Удаление заметки
-        /// <param name="noteGuid">Индетификатор заметки</param>
-        /// </summary>
+        /// <inheritdoc/>
         public async Task Remove(Guid noteGuid)
         {
             var note = await _context.Notes.FirstAsync(n => n.NoteGuid == noteGuid);
@@ -68,12 +61,7 @@ namespace AstralNotes.Domain.Notes
             await _avatarService.Remove(note.FileGuid);
         }
 
-        /// <summary>
-        /// Получение заметки для конкретного  пользователя
-        /// <param name="noteGuid">Индетификатор заметки</param>
-        /// <param name="userId">Индетификатор пользователя</param>
-        /// <returns>Выходная модель заметки</returns>
-        /// </summary>
+        /// <inheritdoc/>
         public async Task<NoteModel> GetNote(Guid noteGuid)
         {
             var note = await _context.Notes.AsNoTracking()
@@ -82,13 +70,8 @@ namespace AstralNotes.Domain.Notes
             return _mapper.Map<Note, NoteModel>(note);
         }
 
-        /// <summary>
-        /// Получение всех заметок для конкретного  пользователя
-        /// <param name="search">Строка для поиска по содержимому заметки</param>
-        /// <param name="userId">Индетификатор пользователя</param>
-        /// <returns>Список выходных моделей заметок</returns>
-        /// </summary>
-        public async Task<List<NoteModel>> GetNotes(string search, string userId)
+        /// <inheritdoc/>
+        public async Task<List<NoteModel>> GetNotes(string search, NoteCategory? noteCategory, string userId)
         {
             var result = _context.Notes.AsNoTracking().Where(x => x.UserId == userId);
 
@@ -97,7 +80,12 @@ namespace AstralNotes.Domain.Notes
                 search = search.Trim().ToLower();
                 result = result.Where(x => x.Content.ToLower().Contains(search));
             }
-
+            
+            if (noteCategory != null)
+            {
+                result = result.Where(note => note.Category == noteCategory);
+            }
+            
             return await result.ProjectTo<NoteModel>().ToListAsync();
         }
     }

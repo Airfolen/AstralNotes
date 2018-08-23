@@ -19,10 +19,7 @@ namespace AstralNotes.Domain.Users
             _httpContextAccessor = httpContextAccessor;
         }
         
-        /// <summary>
-        /// Получение текущего пользователя
-        /// <returns>Модель пользователя</returns>
-        /// </summary>
+       ///<inheritdoc/>
         public async Task<User> GetCurrentUserAsync() => await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
     }
 }

@@ -8,9 +8,9 @@ namespace AstralNotes.Domain.Notes.Models
     public class NoteFilter
     {
         public string Search { get; }
-        public string Category { get; }
+        public NoteCategory? Category { get; }
         
-        public NoteFilter(string search, string category)
+        public NoteFilter(string search, NoteCategory? category)
         {
             Search = search;
             Category = category;

@@ -5,7 +5,7 @@ using AstralNotes.Domain.Notes.Models;
 namespace AstralNotes.Domain.Reports
 {
     /// <summary>
-    /// Сервис для преобразования заметок в pdf документ
+    /// Интерфейс для преобразования заметок в pdf документ
     /// </summary>
     public interface INoteConverterService
     {

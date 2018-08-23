@@ -54,7 +54,7 @@ namespace AstralNotes.Tests.Mocks
                 Category = NoteCategory.Diary
                     
             });
-            avatarMock.Setup(x => x.GetNotes(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(notes);
+            avatarMock.Setup(x => x.GetNotes(It.IsAny<string>(), It.IsAny<NoteCategory?>(), It.IsAny<string>())).ReturnsAsync(notes);
             
             return avatarMock.Object;
         }

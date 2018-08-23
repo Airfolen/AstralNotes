@@ -8,6 +8,10 @@ namespace AstralNotes.Domain.Users
     /// </summary>
     public interface IUserService
     {
+        /// <summary>
+        /// Получение текущего пользователя
+        /// <returns>Модель пользователя</returns>
+        /// </summary>
         Task<User> GetCurrentUserAsync();
     }
 }

@@ -101,7 +101,7 @@ namespace AstralNotes.Tests
         public async void CanGetNotes()
         {
             //Arrange && Act
-            var notes = await _noteService.GetNotes("SomeContent", null);
+            var notes = await _noteService.GetNotes("SomeContent", null, null);
             
             //Assert
             Assert.NotNull(notes);

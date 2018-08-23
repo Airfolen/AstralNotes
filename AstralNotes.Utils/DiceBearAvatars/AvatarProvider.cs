@@ -20,9 +20,7 @@ namespace AstralNotes.Utils.DiceBearAvatars
             };
         }
         
-        /// <summary>
-        /// Получение аватара
-        /// </summary>
+        /// <inheritdoc/>
         public async Task<Stream> GetAsync(string seed)
         {
             var result = await _httpClient.GetAsync($"identicon/{seed}.svg");

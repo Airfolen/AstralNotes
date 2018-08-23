@@ -8,6 +8,9 @@ using iTextSharp.text.pdf;
 
 namespace AstralNotes.Domain.Reports
 {
+    /// <summary>
+    /// Сервис для преобразования заметок в pdf документ
+    /// </summary>
     public class NoteConverterService : INoteConverterService
     {
         readonly ITextSharpDocument _textSharpDocument;
@@ -22,6 +25,7 @@ namespace AstralNotes.Domain.Reports
             _memoryStream = new MemoryStream();
         }
 
+        /// <inheritdoc/>
         public Task<byte[]> GetPdfDocumentAsync(List<NoteModel> notes)
         {
             return Task.Run(() =>
@@ -41,9 +45,6 @@ namespace AstralNotes.Domain.Reports
                 
                 return _memoryStream.ToArray();
             });
-            
-
-           
         }
 
         void DocumentHeader(PdfPTable table)

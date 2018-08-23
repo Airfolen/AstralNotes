@@ -25,10 +25,7 @@ namespace AstralNotes.Domain.Avatars
             _fileStorage = fileStorage;
         }
         
-        /// <summary>
-        /// Сохранение аватара
-        /// <returns>Индетификатор аватара</returns>
-        /// </summary>
+       /// <inheritdoc/>
         public async Task<Guid> SaveAvatar(string seed)
         {
             var content = await _avatarProvider.GetAsync(seed);
@@ -42,11 +39,7 @@ namespace AstralNotes.Domain.Avatars
             return avatarFile.FileGuid;
         }
 
-        /// <summary>
-        /// Получение аватара
-        /// <param name="avatarGuid">Индетификатор аватара</param>
-        /// <returns>Модель аватара</returns>
-        /// </summary>
+        /// <inheritdoc/>
         public async Task<AvatarModel> GetAvatar(Guid avatarGuid)
         {
             var file = await _context.Files.AsNoTracking().FirstAsync(n => n.FileGuid == avatarGuid);
@@ -55,11 +48,7 @@ namespace AstralNotes.Domain.Avatars
             return new AvatarModel(file.FileGuid, file.Extension, content);
         }
 
-        /// <summary>
-        /// Удаление аватара
-        /// <param name="avatarGuid">Индетификатор аватра</param>
-        /// <returns>Индетификатор аватра</returns>
-        /// </summary>
+        /// <inheritdoc/>
         public async Task Remove(Guid avatarGuid)
         {
             var file = await _context.Files.FindAsync(avatarGuid);

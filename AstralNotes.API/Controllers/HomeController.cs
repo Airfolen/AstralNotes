@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AstralNotes.API.ViewModels;
 using AstralNotes.Database.Enums;
 using AstralNotes.Domain.Notes;
@@ -33,18 +30,13 @@ namespace AstralNotes.API.Controllers
         /// <param name="search">Параметр для поиска по содержимому заметок</param>
         /// <param name="category">Параметр для фильтрации заметок</param>
         /// </summary>
-        public async Task<IActionResult> Index(string search, string category)
+        public async Task<IActionResult> Index(string search, NoteCategory? category)
         {
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userService.GetCurrentUserAsync();
-                var notes = await _noteService.GetNotes(search, user.Id);
-
-                if(Enum.TryParse(category, out NoteCategory noteCategory))
-                {
-                    notes = notes.Where(note => note.Category == noteCategory).ToList();
-                }
-                
+                var notes = await _noteService.GetNotes(search, category, user.Id);
+               
                 var viewModel = new HomeView
                 {
                     NoteModels = notes,
@@ -67,7 +59,7 @@ namespace AstralNotes.API.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userService.GetCurrentUserAsync();
-                var notes = await _noteService.GetNotes(null, user.Id);
+                var notes = await _noteService.GetNotes(null, null, user.Id);
 
                 var bytes = await _noteConverterService.GetPdfDocumentAsync(notes);
 
