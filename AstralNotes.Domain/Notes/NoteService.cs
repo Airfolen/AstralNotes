@@ -21,7 +21,6 @@ namespace AstralNotes.Domain.Notes
         readonly NotesContext _context;
         readonly IMapper _mapper;
         readonly IAvatarService _avatarService;
-        const int DescriptionMaxLenght = 90;
 
         public NoteService(NotesContext context, IMapper mapper, IAvatarService avatarService)
         {
@@ -38,9 +37,6 @@ namespace AstralNotes.Domain.Notes
             var avatarFileGuid = await _avatarService.SaveAvatar(note.NoteGuid.ToString());
 
             note.FileGuid = avatarFileGuid;
-            note.Description = model.Content.Length <= DescriptionMaxLenght
-                ? model.Content
-                : model.Content.Substring(0, DescriptionMaxLenght);
             
             note.UserId = userId;
 

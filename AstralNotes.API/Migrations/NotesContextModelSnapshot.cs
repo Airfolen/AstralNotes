@@ -47,9 +47,6 @@ namespace AstralNotes.API.Migrations
 
                     b.Property<DateTime>("CreationDate");
 
-                    b.Property<string>("Description")
-                        .IsRequired();
-
                     b.Property<Guid>("FileGuid");
 
                     b.Property<string>("Title");

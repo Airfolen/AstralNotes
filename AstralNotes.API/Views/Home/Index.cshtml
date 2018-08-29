@@ -1,8 +1,8 @@
 ﻿@using AstralNotes.Database.Enums
 @model AstralNotes.API.ViewModels.HomeView
-@inject AstralNotes.Domain.Notes.INoteService NoteService
 @{
     ViewData["Title"] = "Home Page";
+    const int contentMaxLenght = 100;
 }
  
 <div class="NotesGallery">
@@ -10,18 +10,24 @@
     {
         <form method="get">
             <div class="form-inline form-group">
-                @Html.TextBox("Search", Model.NoteFilter.Search, htmlAttributes: new {@class = "form-control", @placeholder="Поиск по содержимому..."})
+                @Html.TextBox("Search", Model.NoteFilter.Search, 
+                    new {@class = "form-control", placeholder = "Поиск по содержимому..."})
                 @Html.DropDownList("Category", Html.GetEnumSelectList<NoteCategory>(), new {@class = "form-control"})
+                
                 <input type="submit" value="Поиск" class="btn btn-default"/>
+                
                 <a class="CreateNoteLink btn btn-default  navbar-right" asp-controller="Home" asp-action="GetPdfReport">Преобразовать заметки в pdf</a>
                 <a class="CreateNoteLink btn btn-default  navbar-right" asp-controller="Note" asp-action="Create">Создать заметку</a>
             </div>
         </form>
         
-        
         <div class="NoteList">
             @foreach (var note in Model.NoteModels)
             {
+                var content = note.Content.Length <= contentMaxLenght
+                    ? note.Content
+                    : note.Content.Substring(0, contentMaxLenght); 
+                
                 <div class="Note">
                     <a href="http://localhost:5000/Note/@note.NoteGuid">
                         <img src="http://localhost:5000/Avaters/@note.FileGuid" /> 
@@ -29,18 +35,15 @@
                     <a href="http://localhost:5000/Note/@note.NoteGuid" class="NoteTitle caption">
                         <h3 >@note.Title</h3>
                     </a>
-                    <div class="NoteText">@note.Description</div>
+                    
+                    <div class="NoteText"> @content </div>
                     <div class="NoteFooter">
-@*                        <form class="NoteFooter" type="hidden" asp-controller="Note" asp-action="Delete" asp-route-id="@note.NoteGuid" method="post">*@
-@*                            <button type="submit" class="btn btn-sm btn-danger" onclick="">*@
-@*                                Удалить*@
-@*                            </button>*@
-@*                        </form>*@
                         <a class="NoteFooter1 "href="http://localhost:5000/Note/Remove/@note.NoteGuid">
                             <button type="submit" class="btn btn-sm btn-danger">
                                 Удалить
                             </button>
                         </a>
+                        
                         <span class="NoteFooter2">@note.CreationDate.ToString("d")</span>
                     </div>
                 </div>
@@ -52,7 +55,6 @@
         <div class="WelcomeText thumbnail">
             <h2 class="text-center">Добро пожаловать на сайт AstralNotes для того, чтобы воспользоваться сервисом для заметок авторизируйтесь</h2>
         </div>
-       
     }
 
 </div>
