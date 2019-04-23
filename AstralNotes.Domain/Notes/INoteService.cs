@@ -20,10 +20,25 @@ namespace AstralNotes.Domain.Notes
         Task<Guid> Create(NoteInfo model, string userId);
         
         /// <summary>
+        /// Обновление заметки
+        /// <param name="noteGuid">Индетификатор заметки</param>
+        /// <param name="model">Входная модель заметки</param>
+        /// <param name="userId">Индетификатор пользователя</param>
+        /// <returns>Индетификатор заметки</returns>
+        /// </summary>
+        Task Update(Guid noteGuid, NoteInfo model, string userId);
+        
+        /// <summary>
         /// Удаление заметки
         /// <param name="noteGuid">Индетификатор заметки</param>
         /// </summary>
         Task Remove(Guid noteGuid);
+
+        /// <summary>
+        /// Удаление заметки c телефона
+        /// <param name="noteGuid">Индетификатор заметки</param>
+        /// </summary>
+        Task<NoteModel> RemoveWithMobile(Guid noteGuid);
         
         /// <summary>
         /// Получение заметки для конкретного  пользователя

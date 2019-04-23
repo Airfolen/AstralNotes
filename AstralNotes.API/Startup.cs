@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Astral.Extensions.AspNetCore.Mvc.Swagger;
 using AstralNotes.Database;
 using AstralNotes.Database.Entities;
 using AstralNotes.Domain;
@@ -78,6 +79,8 @@ namespace AstralNotes.API
             {
                 characteristics.RootPath = Path.Combine(Environment.ContentRootPath, "LocalFileStore");
             });
+            
+            services.AddSwagger();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -85,6 +88,8 @@ namespace AstralNotes.API
             loggerFactory.AddDebug();
             
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            
+            app.UseSwagger("PizzaDelivery");
             
             app.UseCors("AllowAll");
 

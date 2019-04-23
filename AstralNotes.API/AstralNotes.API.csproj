@@ -8,6 +8,7 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Astral.Extensions.AspNetCore.Mvc" Version="2.1.6" />
     <PackageReference Include="bootstrap" Version="4.1.1" />
     <PackageReference Include="bootstrap-select" Version="1.13.1" />
     <PackageReference Include="iTextSharp" Version="5.5.13" />
