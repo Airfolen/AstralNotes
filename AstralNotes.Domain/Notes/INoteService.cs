@@ -14,16 +14,16 @@ namespace AstralNotes.Domain.Notes
         /// <summary>
         /// Создание заметки
         /// <param name="model">Входная модель заметки</param>
-        /// <param name="userId">Индетификатор пользователя</param>
+        /// <param name="userId">Идентификатор пользователя</param>
         /// <returns>Индетификатор заметки</returns>
         /// </summary>
         Task<Guid> Create(NoteInfo model, string userId);
         
         /// <summary>
         /// Обновление заметки
-        /// <param name="noteGuid">Индетификатор заметки</param>
+        /// <param name="noteGuid">Идентификатор  заметки</param>
         /// <param name="model">Входная модель заметки</param>
-        /// <param name="userId">Индетификатор пользователя</param>
+        /// <param name="userId">Идентификатор пользователя</param>
         /// <returns>Индетификатор заметки</returns>
         /// </summary>
         Task Update(Guid noteGuid, NoteInfo model, string userId);
@@ -36,13 +36,13 @@ namespace AstralNotes.Domain.Notes
 
         /// <summary>
         /// Удаление заметки c телефона
-        /// <param name="noteGuid">Индетификатор заметки</param>
+        /// <param name="noteGuid">Идентификатор заметки</param>
         /// </summary>
         Task<NoteModel> RemoveWithMobile(Guid noteGuid);
         
         /// <summary>
         /// Получение заметки для конкретного  пользователя
-        /// <param name="noteGuid">Индетификатор заметки</param>
+        /// <param name="noteGuid">Идентификатор заметки</param>
         /// <returns>Выходная модель заметки</returns>
         /// </summary>
         Task<NoteModel> GetNote(Guid noteGuid);
@@ -51,7 +51,7 @@ namespace AstralNotes.Domain.Notes
         /// Получение всех заметок для конкретного  пользователя
         /// <param name="search">Строка для поиска по содержимому заметки</param> 
         /// <param name="noteCategory">Категория заметки</param>
-        /// <param name="userId">Индетификатор пользователя</param>
+        /// <param name="userId">Идентификатор пользователя</param>
         /// <returns>Список выходных моделей заметок</returns>
         /// </summary>
         Task<List<NoteModel>> GetNotes(string search, NoteCategory? noteCategory, string userId);

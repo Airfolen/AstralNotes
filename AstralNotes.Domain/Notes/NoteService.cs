@@ -9,7 +9,6 @@ using AstralNotes.Domain.Avatars;
 using AstralNotes.Domain.Notes.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Identity.UI.Pages.Internal.Account.Manage;
 using Microsoft.EntityFrameworkCore;
 
 namespace AstralNotes.Domain.Notes
@@ -89,7 +88,9 @@ namespace AstralNotes.Domain.Notes
         /// <inheritdoc/>
         public async Task<List<NoteModel>> GetNotes(string search, NoteCategory? noteCategory, string userId)
         {
-            var result = _databaseContext.Notes.AsNoTracking().Where(x => x.UserId == userId);
+            var result = _databaseContext.Notes.AsNoTracking()
+                .OrderByDescending(a => a.CreationDate)
+                .Where(x => x.UserId == userId);
 
             if (!string.IsNullOrEmpty(search))
             {
